@@ -128,6 +128,107 @@ export default async function RootLayout({
         </header>
 
         {children}
+
+        {/* Mobile / Tablet Bottom Nav */}
+        <nav className="glass-nav fixed inset-x-3 bottom-3 z-20 rounded-2xl p-2 shadow-md lg:hidden">
+          <ul className={`grid gap-1 ${session ? "grid-cols-6" : "grid-cols-4"}`}>
+            <li>
+              <Link
+                href="/"
+                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" />
+                </svg>
+                <span className="mt-1">หน้าแรก</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/discover"
+                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span className="mt-1">สำรวจ</span>
+              </Link>
+            </li>
+            {session ? (
+              <>
+                <li>
+                  <Link
+                    href="/form/customer"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <span className="mt-1">ฟอร์มลูกค้า</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/form/therapist"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span className="mt-1">ฟอร์มบำบัด</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/merchant"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span className="mt-1">ธุรกิจ</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/admin"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span className="mt-1">แดชบอร์ด</span>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    href="/merchant"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span className="mt-1">ธุรกิจ</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/admin/login"
+                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span className="mt-1">โปรไฟล์</span>
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
       </body>
     </html>
   );

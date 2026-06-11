@@ -51,12 +51,6 @@ const accentStyles: Record<
   },
 };
 
-const mobileTabs = [
-  { href: "/", label: "หน้าแรก", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" },
-  { href: "/discover", label: "สำรวจ", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
-  { href: "/merchant", label: "ธุรกิจ", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
-  { href: "/admin/login", label: "โปรไฟล์", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
-];
 
 const slideshowImages = [
   "https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&w=1600&q=80",
@@ -215,24 +209,6 @@ export default function Home() {
 
       </main>
 
-      {/* Mobile Bottom Nav */}
-      <nav className="glass-nav fixed inset-x-3 bottom-3 z-20 rounded-2xl p-2 shadow-md lg:hidden">
-        <ul className="grid grid-cols-4 gap-1">
-          {mobileTabs.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-              >
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d={item.icon} />
-                </svg>
-                <span className="mt-1">{item.label}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </div>
   );
 }

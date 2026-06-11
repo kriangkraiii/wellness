@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Severity = "severe" | "moderate" | "treatment";
@@ -316,14 +318,16 @@ function ConditionChip({
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export function CustomerForm() {
+export function CustomerForm({ initialName = "" }: { initialName?: string }) {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   // Step 1
-  const [name] = useState("คุณ _______________");
+  const [name, setName] = useState(initialName || "คุณลูกค้า");
+  const [isEditingName, setIsEditingName] = useState(false);
   const [age, setAge] = useState("24");
   const [gender, setGender] = useState("หญิง");
   const [nationality, setNationality] = useState("ไทย");
@@ -384,7 +388,10 @@ export function CustomerForm() {
   }
 
   function handleBack() {
-    if (step === 1) return;
+    if (step === 1) {
+      router.push("/");
+      return;
+    }
     setStep((s) => s - 1);
   }
 
@@ -475,12 +482,26 @@ export function CustomerForm() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-subtle)] text-2xl">
               👤
             </div>
-            <div>
-              <p className="font-semibold text-[var(--ink)]">{name}</p>
-              <p className="text-xs text-[var(--ink-soft)]">ข้อมูลสมาชิก</p>
+            <div className="flex-1">
+              {isEditingName ? (
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="rounded-xl border border-[var(--line)] bg-[var(--bg-deep)] px-2.5 py-1 text-sm text-[var(--ink)] outline-none focus:border-[var(--accent)] w-full max-w-[200px] text-left"
+                  autoFocus
+                />
+              ) : (
+                <p className="font-semibold text-[var(--ink)]">{name}</p>
+              )}
+              <p className="text-xs text-[var(--ink-soft)] mt-0.5">ข้อมูลสมาชิก</p>
             </div>
-            <button type="button" className="ml-auto rounded-full border border-[var(--accent)]/40 px-3 py-1 text-xs font-medium text-[var(--accent)]">
-              แก้ไขข้อมูล
+            <button
+              type="button"
+              onClick={() => setIsEditingName(!isEditingName)}
+              className="ml-auto rounded-full border border-[var(--accent)]/40 px-3 py-1 text-xs font-medium text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition"
+            >
+              {isEditingName ? "ตกลง" : "แก้ไขข้อมูล"}
             </button>
           </div>
         </div>

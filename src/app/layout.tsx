@@ -105,6 +105,16 @@ export default async function RootLayout({
                 </div>
               </div>
 
+              {session && (
+                <div className="dropdown-trigger cursor-pointer select-none">
+                  <span className="hover:text-accent transition">แบบฟอร์มสปา</span>
+                  <div className="dropdown-menu">
+                    <Link href="/form/customer" className="dropdown-item">แบบฟอร์มสำหรับลูกค้า</Link>
+                    <Link href="/form/therapist" className="dropdown-item">แบบฟอร์มสำหรับนักบำบัด</Link>
+                  </div>
+                </div>
+              )}
+
               <Link href="/discover" className="hover:text-accent transition">สิ่งอำนวยความสะดวก</Link>
               <Link href="/" className="hover:text-accent transition">เกี่ยวกับเรา</Link>
             </nav>

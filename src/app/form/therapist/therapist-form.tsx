@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Severity = "severe" | "moderate" | "treatment";
@@ -257,6 +257,7 @@ function IntensitySlider({ label, value, onChange }: { label: string; value: num
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export function TherapistForm() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const searchParams = useSearchParams();
@@ -385,7 +386,13 @@ export function TherapistForm() {
 
   function toggleTechnique(id: string) { setTechniques((prev) => prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]); }
   function toggleCaution(item: string) { setCautions((prev) => prev.includes(item) ? prev.filter((c) => c !== item) : [...prev, item]); }
-  function handleBack() { if (step > 1) setStep((s) => s - 1); }
+  function handleBack() {
+    if (step === 1) {
+      router.push("/");
+      return;
+    }
+    setStep((s) => s - 1);
+  }
   function handleNext() { if (step < 4) setStep((s) => s + 1); else handleSubmit(); }
 
   if (submitted) {

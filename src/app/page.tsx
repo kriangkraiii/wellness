@@ -213,37 +213,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Spa Forms Section */}
-        <section className="fade-rise">
-          <h2 className="mb-4 font-heading text-2xl font-bold text-slate-800">แบบฟอร์มบันทึกข้อมูลสปา</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link
-              href="/form/customer"
-              className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 flex items-center gap-4 hover:-translate-y-0.5"
-            >
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/10 text-accent text-2xl transition duration-300">
-                📋
-              </span>
-              <div>
-                <p className="text-sm font-bold text-slate-800">แบบฟอร์มสำหรับลูกค้า</p>
-                <p className="text-xs text-slate-500 mt-0.5">กรอกข้อมูลและระบุจุดอาการนวด</p>
-              </div>
-            </Link>
-
-            <Link
-              href="/form/therapist"
-              className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 flex items-center gap-4 hover:-translate-y-0.5"
-            >
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-amber-500/10 text-amber-600 text-2xl">
-                🤲
-              </span>
-              <div>
-                <p className="text-sm font-bold text-slate-800">แบบฟอร์มสำหรับนักบำบัด</p>
-                <p className="text-xs text-slate-500 mt-0.5">บันทึกเทคนิคและประเมินผลการรักษา</p>
-              </div>
-            </Link>
-          </div>
-        </section>
       </main>
 
       {/* Mobile Bottom Nav */}

@@ -1,0 +1,215 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BusinessType {
+  MASSAGE
+  SPA
+  WELLNESS_TOURISM
+}
+
+enum PartnerType {
+  SUPPLIER
+  INVESTOR
+  MARKETING
+  TRAVEL
+}
+
+enum AdminRole {
+  ADMIN
+  USER
+}
+
+model Merchant {
+  id                 String               @id @default(cuid())
+  slug               String               @unique
+  name               String
+  businessType       BusinessType
+  location           String
+  description        String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  offerings          Offering[]
+  merchantIngredients MerchantIngredient[]
+  demandRecords      DemandRecord[]
+  recommendationRuns RecommendationRun[]
+  forecastSnapshots  ForecastSnapshot[]
+  routePlans         RoutePlan[]
+  customerSpaRecords CustomerSpaRecord[]
+}
+
+model Offering {
+  id           String   @id @default(cuid())
+  merchantId   String
+  merchant     Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  title        String
+  category     String
+  basePrice    Float
+  wellnessFocus String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Ingredient {
+  id            String               @id @default(cuid())
+  name          String               @unique
+  category      String
+  unit          String
+  marketPrice   Float
+  supplierName  String
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  merchantLinks MerchantIngredient[]
+}
+
+model MerchantIngredient {
+  id            String     @id @default(cuid())
+  merchantId    String
+  ingredientId  String
+  merchant      Merchant   @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  ingredient    Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  monthlyVolume Float
+  usageNote     String?
+
+  @@unique([merchantId, ingredientId])
+}
+
+model Partner {
+  id           String      @id @default(cuid())
+  slug         String      @unique
+  name         String
+  type         PartnerType
+  channel      String
+  summary      String
+  coverageArea String
+  score        Int         @default(70)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model RoutePlan {
+  id            String      @id @default(cuid())
+  slug          String      @unique
+  merchantId    String?
+  merchant      Merchant?   @relation(fields: [merchantId], references: [id], onDelete: SetNull)
+  title         String
+  subtitle      String
+  durationDays  Int
+  focus         String
+  summary       String
+  startingPoint String
+  endingPoint   String
+  tags          String[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  stops         RouteStop[]
+}
+
+model RouteStop {
+  id              String    @id @default(cuid())
+  routePlanId     String
+  routePlan       RoutePlan @relation(fields: [routePlanId], references: [id], onDelete: Cascade)
+  name            String
+  category        String
+  durationMinutes Int
+  notes           String?
+  sortOrder       Int
+
+  @@index([routePlanId, sortOrder])
+}
+
+model DemandRecord {
+  id         String   @id @default(cuid())
+  merchantId String
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  recordDate DateTime
+  bookings   Int
+  avgTicket  Float
+  costIndex  Float    @default(1)
+
+  @@unique([merchantId, recordDate])
+}
+
+model RecommendationRun {
+  id             String   @id @default(cuid())
+  merchantId     String
+  merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  objective      String
+  budgetLevel    String
+  targetAudience String
+  ruleScore      Int
+  ruleSummary    Json
+  llmNarrative   String?
+  llmModel       String?
+  createdAt      DateTime @default(now())
+}
+
+model ForecastSnapshot {
+  id                String   @id @default(cuid())
+  merchantId        String
+  merchant          Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  horizonDays       Int
+  projectedBookings Float
+  projectedRevenue  Float
+  confidence        Float
+  trendPerWeek      Float
+  scenario          Json
+  createdAt         DateTime @default(now())
+
+  @@index([merchantId, createdAt(sort: Desc)])
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         AdminRole @default(ADMIN)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model CustomerSpaRecord {
+  id              String              @id @default(cuid())
+  merchantId      String?
+  merchant        Merchant?           @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  name            String
+  age             Int
+  gender          String
+  nationality     String
+  conditions      String[]
+  surgeryStatus   String
+  surgeryDetail   String?
+  medStatus       String
+  medDetail       String?
+  cautions        String?
+  bodyPoints      Json                // SelectedBodyPoint[]
+  overallRating   Int
+  feelingAfter    Int
+  improvement     Int
+  comment         String?
+  aiRecommendation String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  therapistRecord TherapistSpaRecord?
+}
+
+model TherapistSpaRecord {
+  id                String            @id @default(cuid())
+  customerRecordId  String            @unique
+  customerRecord    CustomerSpaRecord @relation(fields: [customerRecordId], references: [id], onDelete: Cascade)
+  readinessChecks   Json              // boolean checks or custom json
+  beforePainPoints  Json              // SelectedBodyPoint[]
+  afterPainPoints   Json              // SelectedBodyPoint[]
+  techniquesUsed    String[]
+  selfCareTips      String[]
+  notes             String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}

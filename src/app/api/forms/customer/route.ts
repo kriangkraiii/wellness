@@ -4,6 +4,7 @@ import { generateSpaMedicalAdvice } from "@/modules/ai/medical-advice";
 import { z } from "zod";
 
 const customerFormSchema = z.object({
+  merchantId: z.string().optional().nullable(),
   name: z.string().min(1).default("คุณลูกค้า"),
   age: z.number().int().min(1).max(120),
   gender: z.string(),
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
     // Save Customer Spa Record
     const record = await prisma.customerSpaRecord.create({
       data: {
-        merchantId: merchant?.id || null,
+        merchantId: input.merchantId || merchant?.id || null,
         name: input.name,
         age: input.age,
         gender: input.gender,

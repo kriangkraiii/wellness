@@ -48,7 +48,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="bg-amber-50 border border-amber-200/50 rounded-2xl p-5 text-amber-900">
-            <h2 className="font-heading text-base font-bold text-amber-800 mb-1">⚠️ ข้อจำกัดความรับผิดชอบทางการแพทย์ (Medical Disclaimer)</h2>
+            <h2 className="font-heading text-base font-bold text-amber-800 mb-1"> ข้อจำกัดความรับผิดชอบทางการแพทย์ (Medical Disclaimer)</h2>
             <p className="text-xs">
               คำแนะนำ วิเคราะห์สุขภาพ หรือแผนการเดินทางท่องเที่ยวเพื่อบำบัดรักษาต่าง ๆ ที่ปรากฏบนแพลตฟอร์มนี้ 
               เป็นเพียงข้อแนะนำเชิงข้อมูลเพื่อการผ่อนคลายและดูแลสุขภาพเบื้องต้น <strong>ไม่ใช่คำแนะนำหรือการวินิจฉัยโรคทางการแพทย์มืออาชีพ</strong> 

@@ -12,10 +12,10 @@ const provinces = [
 ];
 
 const themes = [
-  { id: "luxury", label: "Luxury", icon: "✨" },
-  { id: "thai-traditional", label: "Thai Traditional", icon: "🏯" },
-  { id: "herbal", label: "Herbal", icon: "🌿" },
-  { id: "modern-wellness", label: "Modern Wellness", icon: "💆" },
+  { id: "luxury", label: "Luxury", icon: "" },
+  { id: "thai-traditional", label: "Thai Traditional", icon: "" },
+  { id: "herbal", label: "Herbal", icon: "" },
+  { id: "modern-wellness", label: "Modern Wellness", icon: "" },
 ];
 
 interface SignatureResult {

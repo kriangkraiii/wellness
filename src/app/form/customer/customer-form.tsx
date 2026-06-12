@@ -4,17 +4,23 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Severity = "severe" | "moderate" | "treatment";
-interface BodyPoint { id: string; label: string; x: number; y: number }
-interface SelectedBodyPoint extends BodyPoint { severity: Severity }
+interface BodyPoint {
+  id: string;
+  label: string;
+  x: number;
+  y: number;
+}
+interface SelectedBodyPoint extends BodyPoint {
+  severity: Severity;
+}
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const STEP_TITLES = [
   "ข้อมูลทั่วไป",
   "สุขภาพ / ประวัติการเจ็บป่วย",
-  "จุดที่มีอาการ / จุดที่ต้องการบำบัด",
+  "จุดที่มีอาการ / จุดที่อาการเล็กน้อย",
   "Feedback",
 ];
 
@@ -26,7 +32,7 @@ const SEV_COLOR: Record<Severity, string> = {
 const SEV_LABEL: Record<Severity, string> = {
   severe: "อาการรุนแรง",
   moderate: "อาการปานกลาง",
-  treatment: "ต้องการบำบัด",
+  treatment: "อาการเล็กน้อย",
 };
 const SEV_ORDER: Severity[] = ["moderate", "severe", "treatment"];
 
@@ -83,20 +89,28 @@ function StepDots({ current }: { current: number }) {
                 active
                   ? "bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(52,211,153,0.4)]"
                   : done
-                  ? "bg-[var(--accent)] text-white"
-                  : "bg-[var(--bg-surface)] text-[var(--ink-muted)]"
+                    ? "bg-[var(--accent)] text-white"
+                    : "bg-[var(--bg-surface)] text-[var(--ink-muted)]"
               }`}
             >
               {done ? (
                 <svg viewBox="0 0 12 12" className="h-3 w-3 fill-white">
-                  <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                  <path
+                    d="M2 6l3 3 5-5"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
                 </svg>
               ) : (
                 idx
               )}
             </div>
             {i < STEP_TITLES.length - 1 && (
-              <div className={`h-0.5 w-6 ${done ? "bg-[var(--accent)]" : "bg-[var(--line)]"}`} />
+              <div
+                className={`h-0.5 w-6 ${done ? "bg-[var(--accent)]" : "bg-[var(--line)]"}`}
+              />
             )}
           </div>
         );
@@ -115,11 +129,18 @@ function FormHeader({ step, onBack }: { step: number; onBack: () => void }) {
           className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--bg-surface)] text-[var(--ink-soft)] transition hover:border-[var(--accent)]/40 hover:text-[var(--accent)]"
           aria-label="ย้อนกลับ"
         >
-          <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-5 w-5 fill-none stroke-current"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          >
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h1 className="text-base font-semibold text-[var(--ink)]">{STEP_TITLES[step - 1]}</h1>
+        <h1 className="text-base font-semibold text-[var(--ink)]">
+          {STEP_TITLES[step - 1]}
+        </h1>
         <div className="w-9" />
       </div>
       <div className="mt-3">
@@ -138,33 +159,146 @@ function BodyDiagram({
 }) {
   const selMap = new Map(selected.map((p) => [p.id, p.severity]));
   return (
-    <svg viewBox="0 0 100 240" className="mx-auto w-full max-w-[170px]" style={{ overflow: "visible" }}>
+    <svg
+      viewBox="0 0 100 240"
+      className="mx-auto w-full max-w-[170px]"
+      style={{ overflow: "visible" }}
+    >
       {/* Body silhouette */}
-      <ellipse cx="50" cy="14" rx="11" ry="12" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M46 25 L54 25 L53 33 L47 33 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M30 33 C22 37 19 52 19 82 C19 87 24 89 50 89 C76 89 81 87 81 82 C81 52 78 37 70 33 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M29 35 Q18 41 13 68 L19 70 Q24 47 32 39 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M13 68 L10 83 L16 84 L19 70 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <ellipse cx="12" cy="88" rx="5" ry="5" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M71 35 Q82 41 87 68 L81 70 Q76 47 68 39 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M87 68 L90 83 L84 84 L81 70 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <ellipse cx="88" cy="88" rx="5" ry="5" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M36 89 C33 112 32 132 32 157 L41 157 C41 132 42 112 46 89 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M54 89 C58 112 58 132 59 157 L68 157 C68 132 67 112 64 89 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M32 157 C30 179 29 197 29 211 L38 211 C38 197 39 179 41 157 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <path d="M59 157 C61 179 62 197 62 211 L71 211 C70 197 68 179 68 157 Z" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <ellipse cx="34" cy="215" rx="9" ry="4" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
-      <ellipse cx="65" cy="215" rx="9" ry="4" fill="var(--bg-elevated)" stroke="var(--line-hover)" strokeWidth="1.1" />
+      <ellipse
+        cx="50"
+        cy="14"
+        rx="11"
+        ry="12"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M46 25 L54 25 L53 33 L47 33 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M30 33 C22 37 19 52 19 82 C19 87 24 89 50 89 C76 89 81 87 81 82 C81 52 78 37 70 33 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M29 35 Q18 41 13 68 L19 70 Q24 47 32 39 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M13 68 L10 83 L16 84 L19 70 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <ellipse
+        cx="12"
+        cy="88"
+        rx="5"
+        ry="5"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M71 35 Q82 41 87 68 L81 70 Q76 47 68 39 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M87 68 L90 83 L84 84 L81 70 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <ellipse
+        cx="88"
+        cy="88"
+        rx="5"
+        ry="5"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M36 89 C33 112 32 132 32 157 L41 157 C41 132 42 112 46 89 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M54 89 C58 112 58 132 59 157 L68 157 C68 132 67 112 64 89 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M32 157 C30 179 29 197 29 211 L38 211 C38 197 39 179 41 157 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <path
+        d="M59 157 C61 179 62 197 62 211 L71 211 C70 197 68 179 68 157 Z"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <ellipse
+        cx="34"
+        cy="215"
+        rx="9"
+        ry="4"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
+      <ellipse
+        cx="65"
+        cy="215"
+        rx="9"
+        ry="4"
+        fill="var(--bg-elevated)"
+        stroke="var(--line-hover)"
+        strokeWidth="1.1"
+      />
       {/* Interactive hotspots */}
       {BODY_POINTS.map((point) => {
         const sev = selMap.get(point.id);
         const color = sev ? SEV_COLOR[sev] : "rgba(138,159,138,0.3)";
         const stroke = sev ? SEV_COLOR[sev] : "var(--ink-muted)";
         return (
-          <g key={point.id} onClick={() => onToggle(point)} style={{ cursor: "pointer" }}>
+          <g
+            key={point.id}
+            onClick={() => onToggle(point)}
+            style={{ cursor: "pointer" }}
+          >
             <circle cx={point.x} cy={point.y} r="7" fill="transparent" />
-            {sev && <circle cx={point.x} cy={point.y} r="8" fill={color} opacity="0.2" />}
-            <circle cx={point.x} cy={point.y} r="4" fill={color} stroke={stroke} strokeWidth="1.5" />
+            {sev && (
+              <circle
+                cx={point.x}
+                cy={point.y}
+                r="8"
+                fill={color}
+                opacity="0.2"
+              />
+            )}
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r="4"
+              fill={color}
+              stroke={stroke}
+              strokeWidth="1.5"
+            />
           </g>
         );
       })}
@@ -172,7 +306,13 @@ function BodyDiagram({
   );
 }
 
-function StarRating({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+function StarRating({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div className="flex gap-2">
       {[1, 2, 3, 4, 5].map((n) => (
@@ -190,10 +330,16 @@ function StarRating({ value, onChange }: { value: number; onChange: (v: number) 
   );
 }
 
-const EMOJIS = ["😞", "🙁", "😐", "🙂", "😄"];
+const EMOJIS = ["", "", "", "", ""];
 const EMOJI_LABELS = ["แย่มาก", "ไม่พอใจ", "ปานกลาง", "พอใจ", "ประทับใจมาก"];
 
-function EmojiRating({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+function EmojiRating({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div className="flex justify-between gap-1">
       {EMOJIS.map((emoji, i) => (
@@ -205,11 +351,16 @@ function EmojiRating({ value, onChange }: { value: number; onChange: (v: number)
         >
           <span
             className="text-2xl leading-none transition-transform"
-            style={{ transform: value === i + 1 ? "scale(1.35)" : "scale(1)", opacity: value === i + 1 ? 1 : 0.4 }}
+            style={{
+              transform: value === i + 1 ? "scale(1.35)" : "scale(1)",
+              opacity: value === i + 1 ? 1 : 0.4,
+            }}
           >
             {emoji}
           </span>
-          <span className={`text-[9px] ${value === i + 1 ? "font-bold text-[var(--accent)]" : "text-[var(--ink-muted)]"}`}>
+          <span
+            className={`text-[9px] ${value === i + 1 ? "font-bold text-[var(--accent)]" : "text-[var(--ink-muted)]"}`}
+          >
             {EMOJI_LABELS[i]}
           </span>
         </button>
@@ -218,36 +369,107 @@ function EmojiRating({ value, onChange }: { value: number; onChange: (v: number)
   );
 }
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+function AiAdviceContent({ content }: { content: string }) {
+  const cleanLine = (str: string) => str.replace(/\*\*/g, "").trim();
+  const lines = content.split("\n");
+
+  return (
+    <div className="space-y-3">
+      {lines.map((line, index) => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+
+        // Check if heading (e.g. 1. [การประเมินอาการเบื้องต้น]: or [หัวข้อ])
+        const isHeading = /^\d+\.\s+\[/.test(trimmed) || /^\[.+\]/.test(trimmed) || /^\*\*\d+\.\s+\[/.test(trimmed);
+        const isBullet = /^[*•-]\s+/.test(trimmed) || /^\*\s+\*\*/.test(trimmed);
+        
+        const cleaned = cleanLine(trimmed);
+
+        if (isHeading) {
+          return (
+            <h4
+              key={index}
+              className="text-xs font-bold text-[#21563F] mt-4 first:mt-0 flex items-center gap-1.5"
+            >
+              <span className="text-[#F0C96B]">✦</span> {cleaned}
+            </h4>
+          );
+        }
+
+        if (isBullet) {
+          // Strip bullet markers
+          const body = cleaned.replace(/^[*•-]\s+/, "").replace(/^\*\s+\*/, "").trim();
+          return (
+            <div
+              key={index}
+              className="flex items-start gap-2 text-xs text-slate-600 pl-3 leading-relaxed"
+            >
+              <span className="text-[#2D6A4F] select-none mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#2D6A4F]" />
+              <span>{body}</span>
+            </div>
+          );
+        }
+
+        return (
+          <p key={index} className="text-xs text-slate-600 leading-relaxed pl-1">
+            {cleaned}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+function Toggle({
+  checked,
+  onChange,
+}: {
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <button
       type="button"
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`relative h-6 w-11 rounded-full transition-colors ${
+      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none p-0 ${
         checked ? "bg-[var(--accent)]" : "bg-[var(--line-hover)]"
       }`}
     >
       <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-          checked ? "translate-x-5" : "translate-x-0.5"
+        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+          checked ? "translate-x-5" : "translate-x-0"
         }`}
       />
     </button>
   );
 }
 
-function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
+function SectionCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="glass-card p-4">
-      <h3 className="mb-3 text-sm font-semibold text-[var(--accent)]">{title}</h3>
+      <h3 className="mb-3 text-sm font-semibold text-[var(--accent)]">
+        {title}
+      </h3>
       {children}
     </div>
   );
 }
 
-function FieldRow({ label, children }: { label: string; children: React.ReactNode }) {
+function FieldRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex items-center justify-between border-b border-[var(--line)] py-2.5 last:border-0">
       <span className="text-sm text-[var(--ink-soft)]">{label}</span>
@@ -301,16 +523,25 @@ function ConditionChip({
     >
       <span
         className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition ${
-          checked ? "border-[var(--accent)] bg-[var(--accent)]" : "border-[var(--line-hover)]"
+          checked
+            ? "border-[var(--accent)] bg-[var(--accent)]"
+            : "border-[var(--line-hover)]"
         }`}
       >
         {checked && (
-          <svg viewBox="0 0 10 10" className="h-3 w-3 fill-none stroke-white" strokeWidth="1.8" strokeLinecap="round">
+          <svg
+            viewBox="0 0 10 10"
+            className="h-3 w-3 fill-none stroke-white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          >
             <path d="M2 5l2.5 2.5 3.5-3.5" />
           </svg>
         )}
       </span>
-      <span className={`text-left text-xs leading-snug ${checked ? "font-medium text-[var(--accent)]" : "text-[var(--ink-soft)]"}`}>
+      <span
+        className={`text-left text-xs leading-snug ${checked ? "font-medium text-[var(--accent)]" : "text-[var(--ink-soft)]"}`}
+      >
         {label}
       </span>
     </button>
@@ -318,16 +549,26 @@ function ConditionChip({
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export function CustomerForm({ initialName = "" }: { initialName?: string }) {
+export function CustomerForm({
+  initialName = "",
+  merchants = [],
+}: {
+  initialName?: string;
+  merchants?: Array<{ id: string; name: string }>;
+}) {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Merchant selection
+  const [selectedMerchantId, setSelectedMerchantId] = useState(
+    merchants[0]?.id || ""
+  );
+
   // Step 1
   const [name, setName] = useState(initialName || "คุณลูกค้า");
-  const [isEditingName, setIsEditingName] = useState(false);
   const [age, setAge] = useState("24");
   const [gender, setGender] = useState("หญิง");
   const [nationality, setNationality] = useState("ไทย");
@@ -367,12 +608,16 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
       if (nextIdx === SEV_ORDER.length) {
         return prev.filter((p) => p.id !== point.id);
       }
-      return prev.map((p) => p.id === point.id ? { ...p, severity: SEV_ORDER[nextIdx] } : p);
+      return prev.map((p) =>
+        p.id === point.id ? { ...p, severity: SEV_ORDER[nextIdx] } : p,
+      );
     });
   }
 
   function setPointSeverity(id: string, severity: Severity) {
-    setBodyPoints((prev) => prev.map((p) => p.id === id ? { ...p, severity } : p));
+    setBodyPoints((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, severity } : p)),
+    );
   }
 
   function removeBodyPoint(id: string) {
@@ -382,14 +627,20 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
   function toggleCondition(cond: string) {
     setConditions((prev) => {
       if (cond === "ไม่มีโรคประจำตัว") return ["ไม่มีโรคประจำตัว"];
-      const without = prev.filter((c) => c !== "ไม่มีโรคประจำตัว" && c !== cond);
+      const without = prev.filter(
+        (c) => c !== "ไม่มีโรคประจำตัว" && c !== cond,
+      );
       return prev.includes(cond) ? without : [...without, cond];
     });
   }
 
   function handleBack() {
     if (step === 1) {
-      if (typeof window !== "undefined" && document.referrer && document.referrer.includes(window.location.host)) {
+      if (
+        typeof window !== "undefined" &&
+        document.referrer &&
+        document.referrer.includes(window.location.host)
+      ) {
         router.back();
       } else {
         router.push("/");
@@ -411,13 +662,17 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            merchantId: selectedMerchantId || undefined,
             name,
             age: parseInt(age) || 24,
             gender,
             nationality,
             conditions,
             surgeryStatus,
-            surgeryDetail: surgeryStatus === "yes" && surgeryDetail ? surgeryDetail : undefined,
+            surgeryDetail:
+              surgeryStatus === "yes" && surgeryDetail
+                ? surgeryDetail
+                : undefined,
             medStatus,
             medDetail: medStatus === "yes" && medDetail ? medDetail : undefined,
             cautions: cautions || undefined,
@@ -440,7 +695,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
           setAiAdvice(data.record.aiRecommendation);
           setSubmitted(true);
         } else {
-          alert("ไม่สามารถบันทึกข้อมูลได้: " + (data.message || "เกิดข้อผิดพลาด"));
+          alert(
+            "ไม่สามารถบันทึกข้อมูลได้: " + (data.message || "เกิดข้อผิดพลาด"),
+          );
         }
       } catch (err) {
         console.error(err);
@@ -455,23 +712,38 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center max-w-xl mx-auto">
         <div className="rounded-full bg-accent p-5 shadow-[0_0_40px_var(--accent-glow)]">
-          <svg viewBox="0 0 24 24" className="h-10 w-10 fill-none stroke-white" strokeWidth="2.5" strokeLinecap="round">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-10 w-10 fill-none stroke-white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          >
             <path d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="mt-4 text-2xl font-bold text-[var(--ink)]">บันทึกข้อมูลและวิเคราะห์อาการสำเร็จ</h2>
-        
+        <h2 className="mt-4 text-2xl font-bold text-[var(--ink)]">
+          บันทึกข้อมูลและวิเคราะห์อาการสำเร็จ
+        </h2>
+
         {aiAdvice && (
           <div className="mt-6 text-left bg-white border border-slate-100 p-5 rounded-2xl shadow-sm space-y-3 w-full">
-            <h3 className="text-xs font-bold text-accent uppercase tracking-wider">✦ คำแนะนำการบำบัดด้วย AI</h3>
-            <div className="text-xs leading-relaxed text-slate-600 whitespace-pre-line bg-slate-50/50 p-4 rounded-xl border border-slate-100/50 max-h-[300px] overflow-y-auto">
-              {aiAdvice}
+            <h3 className="text-xs font-bold text-accent uppercase tracking-wider">
+              ✦ คำแนะนำการบำบัดด้วย AI
+            </h3>
+            <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100/50 max-h-[350px] overflow-y-auto">
+              <AiAdviceContent content={aiAdvice} />
             </div>
           </div>
         )}
 
-        <p className="mt-4 text-xs text-slate-400">ขอบคุณสำหรับการกรอกแบบฟอร์มเชิงลึก ระบบจัดเตรียมคำแนะนำนี้ไว้ให้นักบำบัดของคุณแล้ว</p>
-        <Link href="/" className="btn-primary mt-6 w-full max-w-[200px] text-center block">
+        <p className="mt-4 text-xs text-slate-400">
+          ขอบคุณสำหรับการกรอกแบบฟอร์มเชิงลึก
+          ระบบจัดเตรียมคำแนะนำนี้ไว้ให้นักบำบัดของคุณแล้ว
+        </p>
+        <Link
+          href="/"
+          className="btn-primary mt-6 w-full max-w-[200px] text-center block"
+        >
           กลับหน้าหลัก
         </Link>
       </div>
@@ -484,36 +756,51 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
         <div className="glass-card p-4">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-subtle)] text-2xl">
-              👤
+              
             </div>
-            <div className="flex-1">
-              {isEditingName ? (
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="rounded-xl border border-[var(--line)] bg-[var(--bg-deep)] px-2.5 py-1 text-sm text-[var(--ink)] outline-none focus:border-[var(--accent)] w-full max-w-[200px] text-left"
-                  autoFocus
-                />
-              ) : (
-                <p className="font-semibold text-[var(--ink)]">{name}</p>
-              )}
-              <p className="text-xs text-[var(--ink-soft)] mt-0.5">ข้อมูลสมาชิก</p>
+            <div>
+              <p className="font-semibold text-[var(--ink)]">
+                {name || "คุณลูกค้า"}
+              </p>
+              <p className="text-xs text-[var(--ink-soft)] mt-0.5">
+                แบบฟอร์มบันทึกสุขภาพลูกค้านวด
+              </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsEditingName(!isEditingName)}
-              className="ml-auto rounded-full border border-[var(--accent)]/40 px-3 py-1 text-xs font-medium text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition"
-            >
-              {isEditingName ? "ตกลง" : "แก้ไขข้อมูล"}
-            </button>
           </div>
         </div>
 
         <SectionCard title="ข้อมูลที่สามารถแก้ไขได้">
+          {merchants.length > 0 && (
+            <FieldRow label="ร้านที่เข้าใช้บริการ">
+              <select
+                value={selectedMerchantId}
+                onChange={(e) => setSelectedMerchantId(e.target.value)}
+                className="rounded-xl border border-[var(--line)] bg-[var(--bg-deep)] px-2.5 py-1.5 text-sm text-[var(--ink)] outline-none focus:border-[var(--accent)] max-w-[180px] text-ellipsis overflow-hidden cursor-pointer"
+              >
+                {merchants.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+            </FieldRow>
+          )}
+          <FieldRow label="ชื่อ-นามสกุล">
+            <InputField
+              value={name === "คุณลูกค้า" ? "" : name}
+              placeholder="กรุณากรอกชื่อและนามสกุล"
+              onChange={setName}
+              className="w-48 text-right font-medium"
+            />
+          </FieldRow>
           <FieldRow label="อายุ">
             <div className="flex items-center gap-1">
-              <InputField value={age} onChange={setAge} type="number" className="w-16 text-center" />
+              <InputField
+                value={age}
+                onChange={setAge}
+                type="number"
+                className="w-16 text-center"
+              />
               <span className="text-xs text-[var(--ink-muted)]">ปี</span>
             </div>
           </FieldRow>
@@ -523,35 +810,68 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
               onChange={(e) => setGender(e.target.value)}
               className="rounded-xl border border-[var(--line)] bg-[var(--bg-deep)] px-2.5 py-1.5 text-sm text-[var(--ink)] outline-none focus:border-[var(--accent)]"
             >
-              {["ชาย", "หญิง", "อื่นๆ"].map((g) => <option key={g}>{g}</option>)}
+              {["ชาย", "หญิง", "อื่นๆ"].map((g) => (
+                <option key={g}>{g}</option>
+              ))}
             </select>
           </FieldRow>
           <FieldRow label="เชื้อชาติ">
-            <InputField value={nationality} onChange={setNationality} className="w-24" />
+            <InputField
+              value={nationality}
+              onChange={setNationality}
+              className="w-24"
+            />
           </FieldRow>
           <FieldRow label="สัญชาติ">
-            <InputField value={religion} onChange={setReligion} className="w-24" />
+            <InputField
+              value={religion}
+              onChange={setReligion}
+              className="w-24"
+            />
           </FieldRow>
           <FieldRow label="อาชีพ">
-            <InputField value={occupation} onChange={setOccupation} className="w-24" />
+            <InputField
+              value={occupation}
+              onChange={setOccupation}
+              className="w-24"
+            />
           </FieldRow>
           <FieldRow label="เลขประจำตัวประชาชน">
-            <InputField value={idCard} onChange={setIdCard} placeholder="1-2345-67890-12-3" className="w-36 text-xs" />
+            <InputField
+              value={idCard}
+              onChange={setIdCard}
+              placeholder="1-2345-67890-12-3"
+              className="w-36 text-xs"
+            />
           </FieldRow>
           <FieldRow label="น้ำหนัก">
             <div className="flex items-center gap-1">
-              <InputField value={weight} onChange={setWeight} type="number" className="w-14 text-center" />
+              <InputField
+                value={weight}
+                onChange={setWeight}
+                type="number"
+                className="w-14 text-center"
+              />
               <span className="text-xs text-[var(--ink-muted)]">กก.</span>
             </div>
           </FieldRow>
           <FieldRow label="ส่วนสูง">
             <div className="flex items-center gap-1">
-              <InputField value={height} onChange={setHeight} type="number" className="w-14 text-center" />
+              <InputField
+                value={height}
+                onChange={setHeight}
+                type="number"
+                className="w-14 text-center"
+              />
               <span className="text-xs text-[var(--ink-muted)]">ซม.</span>
             </div>
           </FieldRow>
           <FieldRow label="ที่อยู่ปัจจุบัน">
-            <InputField value={address} onChange={setAddress} className="w-40 text-xs" />
+            <InputField
+              value={address}
+              onChange={setAddress}
+              className="w-40 text-xs"
+            />
           </FieldRow>
         </SectionCard>
       </div>
@@ -594,7 +914,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
                     : "border-[var(--line)] bg-[var(--bg-surface)] text-[var(--ink-soft)]"
                 }`}
               >
-                <span className={`h-4 w-4 rounded-full border-2 ${surgeryStatus === val ? "border-[var(--accent)] bg-[var(--accent)]" : "border-[var(--line-hover)]"}`} />
+                <span
+                  className={`h-4 w-4 rounded-full border-2 ${surgeryStatus === val ? "border-[var(--accent)] bg-[var(--accent)]" : "border-[var(--line-hover)]"}`}
+                />
                 {val === "none" ? "ไม่มี" : "มี (ระบุ)"}
               </button>
             ))}
@@ -623,7 +945,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
                     : "border-[var(--line)] bg-[var(--bg-surface)] text-[var(--ink-soft)]"
                 }`}
               >
-                <span className={`h-4 w-4 rounded-full border-2 ${medStatus === val ? "border-[var(--accent)] bg-[var(--accent)]" : "border-[var(--line-hover)]"}`} />
+                <span
+                  className={`h-4 w-4 rounded-full border-2 ${medStatus === val ? "border-[var(--accent)] bg-[var(--accent)]" : "border-[var(--line-hover)]"}`}
+                />
                 {val === "none" ? "ไม่มี" : "มี (ระบุ)"}
               </button>
             ))}
@@ -657,15 +981,23 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
       <div className="space-y-3">
         <div className="glass-card p-4">
           <p className="text-center text-xs text-[var(--ink-soft)]">
-            กรุณาแตะบริเวณที่มีอาการ — แตะซ้ำเพื่อเปลี่ยนระดับ แตะครั้งที่ 4 เพื่อลบ
+            กรุณาแตะบริเวณที่มีอาการ — แตะซ้ำเพื่อเปลี่ยนระดับ แตะครั้งที่ 4
+            เพื่อลบ
           </p>
           <div className="mt-2 flex justify-center gap-4">
-            {(Object.entries(SEV_LABEL) as [Severity, string][]).map(([sev, label]) => (
-              <div key={sev} className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-full" style={{ background: SEV_COLOR[sev] }} />
-                <span className="text-[11px] text-[var(--ink-soft)]">{label}</span>
-              </div>
-            ))}
+            {(Object.entries(SEV_LABEL) as [Severity, string][]).map(
+              ([sev, label]) => (
+                <div key={sev} className="flex items-center gap-1.5">
+                  <span
+                    className="h-3 w-3 rounded-full"
+                    style={{ background: SEV_COLOR[sev] }}
+                  />
+                  <span className="text-[11px] text-[var(--ink-soft)]">
+                    {label}
+                  </span>
+                </div>
+              ),
+            )}
           </div>
           <div className="mt-4">
             <BodyDiagram selected={bodyPoints} onToggle={toggleBodyPoint} />
@@ -676,11 +1008,19 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
           <SectionCard title="รายการจุดที่เลือก">
             <div className="space-y-2">
               {bodyPoints.map((point) => (
-                <div key={point.id} className="rounded-xl border border-[var(--line)] bg-[var(--bg-surface)] p-2.5">
+                <div
+                  key={point.id}
+                  className="rounded-xl border border-[var(--line)] bg-[var(--bg-surface)] p-2.5"
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="h-3 w-3 flex-shrink-0 rounded-full" style={{ background: SEV_COLOR[point.severity] }} />
-                      <span className="text-sm font-medium text-[var(--ink)]">{point.label}</span>
+                      <span
+                        className="h-3 w-3 flex-shrink-0 rounded-full"
+                        style={{ background: SEV_COLOR[point.severity] }}
+                      />
+                      <span className="text-sm font-medium text-[var(--ink)]">
+                        {point.label}
+                      </span>
                     </div>
                     <button
                       type="button"
@@ -701,7 +1041,11 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
                             ? "text-white"
                             : "bg-[var(--bg-deep)] text-[var(--ink-muted)] border border-[var(--line)]"
                         }`}
-                        style={point.severity === sev ? { background: SEV_COLOR[sev] } : {}}
+                        style={
+                          point.severity === sev
+                            ? { background: SEV_COLOR[sev] }
+                            : {}
+                        }
                       >
                         {SEV_LABEL[sev]}
                       </button>
@@ -714,7 +1058,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
         )}
 
         {bodyPoints.length === 0 && (
-          <p className="text-center text-sm text-[var(--ink-muted)]">ยังไม่ได้เลือกจุดใด — แตะบนร่างกายด้านบนเพื่อเลือก</p>
+          <p className="text-center text-sm text-[var(--ink-muted)]">
+            ยังไม่ได้เลือกจุดใด — แตะบนร่างกายด้านบนเพื่อเลือก
+          </p>
         )}
       </div>
     );
@@ -726,7 +1072,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
         <SectionCard title="ความพึงพอใจโดยรวม">
           <div className="flex items-center gap-3">
             <StarRating value={overallRating} onChange={setOverallRating} />
-            <span className="text-sm font-semibold text-[var(--gold)]">{overallRating}/5</span>
+            <span className="text-sm font-semibold text-[var(--gold)]">
+              {overallRating}/5
+            </span>
           </div>
         </SectionCard>
 
@@ -738,7 +1086,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
           <div className="space-y-2">
             <div className="flex justify-between text-xs text-[var(--ink-muted)]">
               <span>0%</span>
-              <span className="font-bold text-[var(--accent)]">{improvement}%</span>
+              <span className="font-bold text-[var(--accent)]">
+                {improvement}%
+              </span>
               <span>100%</span>
             </div>
             <input
@@ -771,7 +1121,9 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
         <div className="glass-card p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
-              <p className="text-sm font-medium text-[var(--ink)]">อนุญาตให้ใช้ข้อมูลเพื่อพัฒนาบริการ</p>
+              <p className="text-sm font-medium text-[var(--ink)]">
+                อนุญาตให้ใช้ข้อมูลเพื่อพัฒนาบริการ
+              </p>
               <p className="mt-0.5 text-xs text-[var(--ink-muted)]">
                 ข้อมูลของคุณจะถูกเก็บรักษาตามมาตรฐาน PDPA
               </p>
@@ -804,9 +1156,24 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
         >
           {submitting ? (
             <>
-              <svg className="h-5 w-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-                <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75" />
+              <svg
+                className="h-5 w-5 animate-spin text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  className="opacity-25"
+                />
+                <path
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  className="opacity-75"
+                />
               </svg>
               กำลังประมวลผลอาการและบันทึก...
             </>
@@ -817,7 +1184,7 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
           )}
         </button>
         <p className="mt-2 text-center text-[10px] text-[var(--ink-muted)]">
-          🔒 ข้อมูลของคุณปลอดภัยตามมาตรฐาน PDPA
+           ข้อมูลของคุณปลอดภัยตามมาตรฐาน PDPA
         </p>
       </div>
     </div>

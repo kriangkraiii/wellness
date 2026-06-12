@@ -71,7 +71,7 @@ export default async function DiscoverRouteDetailPage({ params }: Props) {
           {plan.stops.length} จุดแนะนำ
         </span>
         <span className="rounded-full bg-slate-50 border border-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-          📍 {plan.startingPoint} → {plan.endingPoint}
+           {plan.startingPoint} → {plan.endingPoint}
         </span>
       </div>
 

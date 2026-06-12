@@ -23,7 +23,7 @@ export default async function MerchantRecommendationPage() {
     <section className="space-y-4">
       {dbMessage && (
         <div className="rounded-2xl border border-[var(--warn)]/30 bg-[var(--warn-bg)] px-4 py-3 text-sm text-[var(--warn)]">
-          ⚠ เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
+           เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
           <br />
           ตั้งค่า DATABASE_URL แล้วรัน migration/seed ก่อนใช้งาน recommendation
         </div>

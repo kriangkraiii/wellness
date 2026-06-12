@@ -107,7 +107,43 @@ async function generateNarrativeWithLLM(
 }
 
 export async function runRecommendation(input: RecommendationInput): Promise<RecommendationResult> {
-  const merchant = await getMerchantBySlug(input.merchantSlug);
+  let merchant;
+  if (input.merchantSlug === "guest-custom-store") {
+    const customName = input.customName || "ร้านจำลองของคุณ";
+    const customType = input.customBusinessType || "SPA";
+    const customLoc = input.customLocation || "ขอนแก่น";
+
+    merchant = await prisma.merchant.upsert({
+      where: { slug: "guest-custom-store" },
+      update: {
+        name: customName,
+        businessType: customType,
+        location: customLoc,
+      },
+      create: {
+        slug: "guest-custom-store",
+        name: customName,
+        businessType: customType,
+        location: customLoc,
+      },
+      include: {
+        offerings: true,
+        merchantIngredients: {
+          include: {
+            ingredient: true,
+          },
+        },
+        demandRecords: {
+          orderBy: {
+            recordDate: "asc",
+          },
+        },
+      },
+    });
+  } else {
+    merchant = await getMerchantBySlug(input.merchantSlug);
+  }
+
   if (!merchant) {
     throw new Error("Merchant not found");
   }

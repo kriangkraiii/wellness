@@ -321,7 +321,6 @@ export function ChatWidget() {
           ) : (
             <div className="relative flex items-center justify-center">
               <MessageCircle className="h-7.5 w-7.5 text-white transition-transform duration-300 hover:scale-105" />
-              <Sparkles className="absolute -right-1.5 -top-1.5 h-4 w-4 text-[#F0C96B] animate-pulse" />
             </div>
           )}
         </button>

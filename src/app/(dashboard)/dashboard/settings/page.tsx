@@ -217,7 +217,7 @@ export default function SettingsPage() {
                 : "border border-slate-200 text-slate-500 hover:border-[#52B788]"
             }`}
           >
-            🇹🇭 ไทย
+             ไทย
           </button>
           <button
             onClick={() => setLanguage("en")}
@@ -227,7 +227,7 @@ export default function SettingsPage() {
                 : "border border-slate-200 text-slate-500 hover:border-[#52B788]"
             }`}
           >
-            🇬🇧 English
+             English
           </button>
         </div>
       </div>

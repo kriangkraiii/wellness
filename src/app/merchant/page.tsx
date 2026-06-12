@@ -25,9 +25,9 @@ type MerchantCard = Prisma.MerchantGetPayload<{
 }>;
 
 const bizIcon: Record<string, string> = {
-  MASSAGE: "🤲",
-  SPA: "🧖",
-  WELLNESS_TOURISM: "🌿",
+  MASSAGE: "",
+  SPA: "",
+  WELLNESS_TOURISM: "",
 };
 
 export default async function MerchantDashboardPage() {
@@ -63,7 +63,7 @@ export default async function MerchantDashboardPage() {
 
         {dbMessage && (
           <div className="mt-5 rounded-2xl border border-[var(--warn)]/30 bg-[var(--warn-bg)] px-4 py-3 text-sm text-[var(--warn)]">
-            ⚠ เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
+             เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
             <br />
             ตรวจสอบ DATABASE_URL แล้วรัน prisma migrate + seed
           </div>
@@ -71,7 +71,7 @@ export default async function MerchantDashboardPage() {
 
         {!dbMessage && merchants.length === 0 && (
           <div className="mt-5 rounded-2xl border border-[var(--line)] bg-[var(--bg-surface)] px-4 py-6 text-center text-sm text-[var(--ink-soft)]">
-            <span className="text-4xl">🏪</span>
+            <span className="text-4xl"></span>
             <p className="mt-2">ยังไม่มีข้อมูล merchant ในฐานข้อมูล</p>
             <p className="text-xs text-[var(--ink-muted)]">กรุณารัน seed ข้อมูล</p>
           </div>
@@ -84,7 +84,7 @@ export default async function MerchantDashboardPage() {
               className={`glass-card glass-card-hover p-5 fade-rise fade-rise-delay-${Math.min(i + 1, 5)}`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{bizIcon[merchant.businessType] || "🏢"}</span>
+                <span className="text-2xl">{bizIcon[merchant.businessType] || ""}</span>
                 <span className="rounded-full bg-[var(--gold-glow)] px-2.5 py-1 text-[10px] font-bold uppercase text-[var(--gold)]">
                   {merchant.businessType}
                 </span>
@@ -92,7 +92,7 @@ export default async function MerchantDashboardPage() {
               <h3 className="mt-3 font-heading text-xl text-[var(--ink)]">
                 {merchant.name}
               </h3>
-              <p className="mt-1 text-sm text-[var(--ink-soft)]">📍 {merchant.location}</p>
+              <p className="mt-1 text-sm text-[var(--ink-soft)]"> {merchant.location}</p>
               <div className="mt-3 flex gap-3 text-xs text-[var(--ink-muted)]">
                 <span className="rounded-full bg-[var(--bg-surface)] px-2.5 py-1">
                   {merchant.offerings.length} บริการ

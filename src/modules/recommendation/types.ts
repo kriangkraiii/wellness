@@ -3,6 +3,9 @@ export type RecommendationInput = {
   objective: string;
   budgetLevel: "low" | "medium" | "high";
   targetAudience: "local" | "thai-traveler" | "international";
+  customName?: string;
+  customBusinessType?: "MASSAGE" | "SPA" | "WELLNESS_TOURISM";
+  customLocation?: string;
 };
 
 export type RecommendationItem = {

@@ -91,13 +91,13 @@ export default async function DiscoverPage() {
 
       {dbMessage && (
         <div className="mt-5 rounded-2xl border border-[var(--warn)]/30 bg-[var(--warn-bg)] px-4 py-3 text-sm text-[var(--warn)]">
-          ⚠ เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
+           เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
         </div>
       )}
 
       {!dbMessage && plans.length === 0 && (
         <div className="mt-8 flex flex-col items-center py-12 text-center">
-          <span className="text-5xl">🗺️</span>
+          <span className="text-5xl"></span>
           <p className="mt-4 text-sm text-slate-500 font-medium">
             ยังไม่มี route plan ในฐานข้อมูล
           </p>

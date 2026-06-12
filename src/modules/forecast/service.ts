@@ -29,9 +29,58 @@ export async function runForecast(
   merchantSlug: string,
   horizonDays = 14,
 ): Promise<ForecastResult> {
-  const merchant = await getMerchantBySlug(merchantSlug);
+  let merchant = await getMerchantBySlug(merchantSlug);
+  if (!merchant && merchantSlug === "guest-custom-store") {
+    merchant = await prisma.merchant.create({
+      data: {
+        slug: "guest-custom-store",
+        name: "ร้านจำลองของคุณ",
+        businessType: "SPA",
+        location: "ขอนแก่น",
+      },
+      include: {
+        offerings: true,
+        merchantIngredients: {
+          include: {
+            ingredient: true,
+          },
+        },
+        demandRecords: {
+          orderBy: {
+            recordDate: "asc",
+          },
+        },
+      },
+    }) as any;
+  }
+
   if (!merchant) {
     throw new Error("Merchant not found");
+  }
+
+  // Seed mock demand data for try-out mode if missing
+  if (merchantSlug === "guest-custom-store" && merchant.demandRecords.length < 7) {
+    const mockRecords = [];
+    for (let i = 21; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      date.setHours(0, 0, 0, 0);
+      mockRecords.push({
+        merchantId: merchant.id,
+        recordDate: date,
+        bookings: Math.floor(Math.random() * 15) + 10,
+        avgTicket: Math.floor(Math.random() * 300) + 600,
+        costIndex: 1.0,
+      });
+    }
+    await prisma.demandRecord.createMany({
+      data: mockRecords,
+      skipDuplicates: true,
+    });
+    const updatedMerchant = await getMerchantBySlug(merchantSlug);
+    if (updatedMerchant) {
+      merchant = updatedMerchant;
+    }
   }
 
   const records = merchant.demandRecords;

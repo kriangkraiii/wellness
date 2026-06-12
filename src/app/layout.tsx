@@ -100,21 +100,20 @@ export default async function RootLayout({
               </div>
 
 
-              {session && (
-                <div className="dropdown-trigger cursor-pointer select-none">
-                  <span className="hover:text-accent transition">แบบฟอร์มสปา</span>
-                  <div className="dropdown-menu">
-                    <Link href="/form/customer" className="dropdown-item">แบบฟอร์มสำหรับลูกค้า</Link>
-                    <Link href="/form/therapist" className="dropdown-item">แบบฟอร์มสำหรับนักบำบัด</Link>
-                  </div>
-                </div>
-              )}
+              <Link href="/form/customer" className="hover:text-accent transition font-medium">แบบฟอร์มลูกค้านวด</Link>
+
+              <Link
+                href="/try"
+                className="hover:text-accent transition font-medium text-emerald-700 font-bold flex items-center gap-1"
+              >
+                ทดลองวิเคราะห์ <span className="text-[9px] bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-800 animate-pulse">Try</span>
+              </Link>
 
               <Link href="/discover" className="hover:text-accent transition">สิ่งอำนวยความสะดวก</Link>
               <Link href="/about" className="hover:text-accent transition">เกี่ยวกับเรา</Link>
             </nav>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               {session && (
                 <Link 
                   href="/dashboard" 
@@ -227,7 +226,7 @@ export default async function RootLayout({
         <PublicHeaderWrapper>
         {/* Mobile / Tablet Bottom Nav */}
         <nav className="glass-nav fixed inset-x-3 bottom-3 z-20 rounded-2xl p-2 shadow-md lg:hidden">
-          <ul className={`grid gap-1 ${session ? "grid-cols-6" : "grid-cols-4"}`}>
+          <ul className="grid gap-1 grid-cols-5">
             <li>
               <Link
                 href="/"
@@ -250,79 +249,39 @@ export default async function RootLayout({
                 <span className="mt-1">สำรวจ</span>
               </Link>
             </li>
-            {session ? (
-              <>
-                <li>
-                  <Link
-                    href="/form/customer"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    <span className="mt-1">ฟอร์มลูกค้า</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/form/therapist"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    <span className="mt-1">ฟอร์มบำบัด</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/dashboard/merchant-hub"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                    <span className="mt-1">ธุรกิจ</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/admin"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="mt-1">แดชบอร์ด</span>
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    href="/dashboard/merchant-hub"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                    <span className="mt-1">ธุรกิจ</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/admin/login"
-                    className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="mt-1">โปรไฟล์</span>
-                  </Link>
-                </li>
-              </>
-            )}
+            <li>
+              <Link
+                href="/form/customer"
+                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <span className="mt-1">ฟอร์มลูกค้า</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/try"
+                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                </svg>
+                <span className="mt-1">ลองวิเคราะห์</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={session ? "/admin" : "/admin/login"}
+                className="flex flex-col items-center rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-accent duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span className="mt-1">{session ? "แดชบอร์ด" : "โปรไฟล์"}</span>
+              </Link>
+            </li>
           </ul>
         </nav>
         </PublicHeaderWrapper>

@@ -7,6 +7,9 @@ const requestSchema = z.object({
   objective: z.string().min(3),
   budgetLevel: z.enum(["low", "medium", "high"]),
   targetAudience: z.enum(["local", "thai-traveler", "international"]),
+  customName: z.string().optional(),
+  customBusinessType: z.enum(["MASSAGE", "SPA", "WELLNESS_TOURISM"]).optional(),
+  customLocation: z.string().optional(),
 });
 
 export async function POST(request: Request) {

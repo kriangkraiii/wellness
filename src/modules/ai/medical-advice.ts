@@ -111,18 +111,24 @@ ${
       messages: [
         {
           role: "system",
-          content: "คุณเป็นที่ปรึกษาการแพทย์แผนไทยและการท่องเที่ยวเชิงสุขภาพ",
+          content: "คุณเป็นที่ปรึกษาการแพทย์แผนไทยและการท่องเที่ยวเชิงสุขภาพ ตอบคำถามโดยใช้ความคิด (Reasoning) สั้นที่สุดอย่างกระชับ และเขียนคำตอบในหัวข้อทั้ง 5 ข้อโดยทันที",
         },
         {
           role: "user",
           content: prompt,
         },
       ],
-      temperature: 0.6,
-      max_tokens: 800,
+      temperature: 0.3,
+      max_tokens: 3000,
     });
 
-    return response.choices[0]?.message?.content || getOfflineMedicalAdvice(input);
+    const content = response.choices[0]?.message?.content || "";
+    if (content.trim().length < 150) {
+      console.warn("AI advice was too short, falling back to offline advice generator.");
+      return getOfflineMedicalAdvice(input);
+    }
+
+    return content;
   } catch (error) {
     console.error("AI Generation failed:", error);
     return getOfflineMedicalAdvice(input);

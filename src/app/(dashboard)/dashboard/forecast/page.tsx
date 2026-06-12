@@ -23,7 +23,7 @@ export default async function DashboardForecastPage() {
     <section className="space-y-4">
       {dbMessage && (
         <div className="rounded-2xl border border-[var(--warn)]/30 bg-[var(--warn-bg)] px-4 py-3 text-sm text-[var(--warn)]">
-          ⚠ เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
+           เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
           <br />
           ต้องมีข้อมูล demand records อย่างน้อย 7 วันจึงจะ forecast ได้
         </div>

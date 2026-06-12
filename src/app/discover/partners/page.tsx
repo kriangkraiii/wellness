@@ -68,13 +68,13 @@ export default async function DiscoverPartnersPage({ searchParams }: Props) {
 
       {dbMessage && (
         <div className="mt-5 rounded-2xl border border-[var(--warn)]/30 bg-[var(--warn-bg)] px-4 py-3 text-sm text-[var(--warn)]">
-          ⚠ เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
+           เชื่อมฐานข้อมูลไม่สำเร็จ: {dbMessage}
         </div>
       )}
 
       {!dbMessage && partners.length === 0 && (
         <div className="mt-8 flex flex-col items-center py-12 text-center bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-          <span className="text-5xl">🏢</span>
+          <span className="text-5xl"></span>
           <p className="mt-4 text-sm text-slate-500 font-medium">
             ไม่พบข้อมูลพาร์ทเนอร์สำหรับการค้นหา &ldquo;{filter}&rdquo;
           </p>
@@ -128,7 +128,7 @@ export default async function DiscoverPartnersPage({ searchParams }: Props) {
             </div>
 
             <div className="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span>📍 พื้นที่ให้บริการ: {partner.coverageArea}</span>
+              <span> พื้นที่ให้บริการ: {partner.coverageArea}</span>
             </div>
           </article>
         ))}

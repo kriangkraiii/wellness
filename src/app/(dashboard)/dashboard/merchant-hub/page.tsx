@@ -31,9 +31,9 @@ interface HistoryData {
 }
 
 const bizIcon: Record<string, string> = {
-  MASSAGE: "🤲",
-  SPA: "🧖",
-  WELLNESS_TOURISM: "🌿",
+  MASSAGE: "",
+  SPA: "",
+  WELLNESS_TOURISM: "",
 };
 
 export default function MerchantHubPage() {
@@ -86,7 +86,7 @@ export default function MerchantHubPage() {
 
           {merchants.length === 0 ? (
             <div className="flex flex-col items-center py-8 text-center text-slate-400">
-              <span className="text-4xl block mb-2">🏪</span>
+              <span className="text-4xl block mb-2"></span>
               <p className="font-semibold text-slate-700">{t("ไม่พบข้อมูลผู้ประกอบการ", "No Merchants Found")}</p>
               <p className="text-xs text-slate-400 mt-1">{t("กรุณารัน seed ข้อมูล", "Please seed the database.")}</p>
             </div>
@@ -98,7 +98,7 @@ export default function MerchantHubPage() {
                   className="rounded-2xl border border-slate-100 bg-slate-50/50 p-5 hover:border-emerald-500/20 hover:bg-white transition-all duration-200 shadow-xs"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl">{bizIcon[merchant.businessType] || "🏢"}</span>
+                    <span className="text-2xl">{bizIcon[merchant.businessType] || ""}</span>
                     <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[9px] font-bold uppercase text-[#2D6A4F]">
                       {merchant.businessType}
                     </span>
@@ -106,7 +106,7 @@ export default function MerchantHubPage() {
                   <h4 className="mt-3 font-heading text-lg font-bold text-slate-800">
                     {merchant.name}
                   </h4>
-                  <p className="mt-1 text-xs text-slate-500">📍 {merchant.location}</p>
+                  <p className="mt-1 text-xs text-slate-500"> {merchant.location}</p>
                   
                   <div className="mt-4 pt-3 border-t border-slate-100/50 flex gap-3 text-[10px] text-slate-400 font-semibold">
                     <span className="bg-white border border-slate-100 px-2 py-0.5 rounded-lg">

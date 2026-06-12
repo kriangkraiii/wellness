@@ -28,7 +28,7 @@ export function DashboardHeader({ spaName, userName }: DashboardHeaderProps) {
       <div className="ml-10 lg:ml-0">
         <h1 className="text-lg font-bold text-slate-800">{t("แดชบอร์ด", "Dashboard")}</h1>
         <p className="text-xs text-slate-500">
-          {t("สวัสดี, ", "Hello, ")}{spaName} 👋
+          {t("สวัสดี, ", "Hello, ")}{spaName} 
         </p>
       </div>
 

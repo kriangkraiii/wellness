@@ -97,11 +97,11 @@ const SEV_COLOR: Record<Severity, string> = {
 };
 
 const MASSAGE_TECHNIQUES: Record<string, { label: string; icon: string }> = {
-  thai: { label: "นวดไทย", icon: "🤲" },
-  oil: { label: "นวดน้ำมัน", icon: "🫙" },
-  "hot-compress": { label: "ประคบสมุนไพร", icon: "🌡️" },
-  acupressure: { label: "กดจุดบำบัด", icon: "👆" },
-  other: { label: "นวดอื่นๆ", icon: "➕" },
+  thai: { label: "นวดไทย", icon: "" },
+  oil: { label: "นวดน้ำมัน", icon: "" },
+  "hot-compress": { label: "ประคบสมุนไพร", icon: "" },
+  acupressure: { label: "กดจุดบำบัด", icon: "" },
+  other: { label: "นวดอื่นๆ", icon: "" },
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -263,7 +263,7 @@ export default function MerchantRecordsPage() {
           href="/form/therapist"
           className="btn-primary rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-2 max-w-max self-start sm:self-auto shadow-sm"
         >
-          📝 กรอกประเมิน Therapist
+           กรอกประเมิน Therapist
         </Link>
       </div>
 
@@ -271,7 +271,7 @@ export default function MerchantRecordsPage() {
       <div className="glass-card p-5 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="relative w-full md:max-w-md">
           <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-            🔍
+            
           </span>
           <input
             type="text"
@@ -314,11 +314,11 @@ export default function MerchantRecordsPage() {
         </div>
       ) : error ? (
         <div className="rounded-2xl border border-red-100 bg-red-50/50 p-6 text-center text-sm text-red-600">
-          ⚠️ เกิดข้อผิดพลาด: {error}
+           เกิดข้อผิดพลาด: {error}
         </div>
       ) : filteredRecords.length === 0 ? (
         <div className="glass-card p-12 text-center text-slate-400">
-          <span className="text-4xl block mb-2">📂</span>
+          <span className="text-4xl block mb-2"></span>
           <p className="font-semibold text-slate-700">ไม่พบประวัติลูกค้าในขณะนี้</p>
           <p className="text-xs text-slate-400 mt-1">ลองเปลี่ยนคำค้นหา หรือกรอกข้อมูลจำลองเพิ่มได้</p>
         </div>
@@ -392,7 +392,7 @@ export default function MerchantRecordsPage() {
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 bg-amber-50 rounded-full px-2.5 py-1 animate-pulse">
-                            ⚡ รอประเมิน
+                             รอประเมิน
                           </span>
                         )}
                       </td>
@@ -470,7 +470,7 @@ export default function MerchantRecordsPage() {
                     : "border-transparent text-slate-500 hover:text-slate-700"
                 }`}
               >
-                💆 ผลการบำบัดของ Therapist
+                 ผลการบำบัดของ Therapist
                 {!selectedRecord.therapistRecord && (
                   <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
                 )}
@@ -529,21 +529,21 @@ export default function MerchantRecordsPage() {
 
                         {selectedRecord.surgeryStatus === "yes" && (
                           <div className="bg-amber-50/50 border border-amber-100/50 rounded-xl p-3 text-xs">
-                            <span className="font-semibold text-amber-800 block">⚙️ ประวัติผ่าตัด/อุปกรณ์โลหะ:</span>
+                            <span className="font-semibold text-amber-800 block"> ประวัติผ่าตัด/อุปกรณ์โลหะ:</span>
                             <p className="text-slate-600 mt-0.5">{selectedRecord.surgeryDetail || "ไม่ได้ระบุรายละเอียด"}</p>
                           </div>
                         )}
 
                         {selectedRecord.medStatus === "yes" && (
                           <div className="bg-amber-50/50 border border-amber-100/50 rounded-xl p-3 text-xs">
-                            <span className="font-semibold text-amber-800 block">💊 ยาที่รับประทานเป็นประจำ:</span>
+                            <span className="font-semibold text-amber-800 block"> ยาที่รับประทานเป็นประจำ:</span>
                             <p className="text-slate-600 mt-0.5">{selectedRecord.medDetail || "ไม่ได้ระบุรายละเอียด"}</p>
                           </div>
                         )}
 
                         {selectedRecord.cautions && (
                           <div className="bg-red-50/40 border border-red-100/30 rounded-xl p-3 text-xs">
-                            <span className="font-semibold text-red-800 block">⚠️ ข้อควรระวังพิเศษ (ลูกค้าแจ้ง):</span>
+                            <span className="font-semibold text-red-800 block"> ข้อควรระวังพิเศษ (ลูกค้าแจ้ง):</span>
                             <p className="text-slate-600 mt-0.5">{selectedRecord.cautions}</p>
                           </div>
                         )}
@@ -582,7 +582,7 @@ export default function MerchantRecordsPage() {
                   {/* Customer feedback card */}
                   {selectedRecord.comment && (
                     <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-xs">
-                      <span className="font-semibold text-slate-500 block">💬 ข้อคิดเห็นเพิ่มเติมจากลูกค้า:</span>
+                      <span className="font-semibold text-slate-500 block"> ข้อคิดเห็นเพิ่มเติมจากลูกค้า:</span>
                       <p className="text-slate-600 mt-1 italic">&ldquo;{selectedRecord.comment}&rdquo;</p>
                     </div>
                   )}
@@ -660,7 +660,7 @@ export default function MerchantRecordsPage() {
                               <div className="mt-2 flex flex-wrap gap-2">
                                 {thRec.techniquesUsed && thRec.techniquesUsed.length > 0 ? (
                                   thRec.techniquesUsed.map((tech) => {
-                                    const details = MASSAGE_TECHNIQUES[tech] || { label: tech, icon: "🤲" };
+                                    const details = MASSAGE_TECHNIQUES[tech] || { label: tech, icon: "" };
                                     return (
                                       <span
                                         key={tech}
@@ -712,7 +712,7 @@ export default function MerchantRecordsPage() {
                   ) : (
                     /* Call To Action if therapist record does not exist */
                     <div className="rounded-2xl border border-amber-100 bg-amber-50/50 p-6 text-center space-y-4">
-                      <span className="text-4xl block">💆‍♀️</span>
+                      <span className="text-4xl block">‍♀</span>
                       <h4 className="font-heading text-base font-bold text-amber-800">
                         ยังไม่มีประวัติการบำบัดของ Therapist
                       </h4>
@@ -724,7 +724,7 @@ export default function MerchantRecordsPage() {
                         href={`/form/therapist?recordId=${selectedRecord.id}`}
                         className="btn-gold rounded-full px-5 py-2.5 text-xs font-bold inline-block shadow-sm transition"
                       >
-                        ✍️ กรอกประเมินการบำบัด ณ เดี๋ยวนี้
+                         กรอกประเมินการบำบัด ณ เดี๋ยวนี้
                       </Link>
                     </div>
                   )}

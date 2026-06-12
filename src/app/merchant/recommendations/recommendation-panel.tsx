@@ -170,7 +170,7 @@ export function RecommendationPanel({ merchants }: { merchants: MerchantOption[]
 
         {!result && (
           <div className="mt-8 flex flex-col items-center py-8 text-center">
-            <span className="text-5xl">💡</span>
+            <span className="text-5xl"></span>
             <p className="mt-4 text-sm text-[var(--ink-soft)]">
               กรอกข้อมูลแล้วกดสร้างคำแนะนำ
             </p>

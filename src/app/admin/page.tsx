@@ -6,7 +6,7 @@ import { getCurrentAdminSession } from "@/modules/auth/server-session";
 
 export const dynamic = "force-dynamic";
 
-const statIcons = ["🏪", "🤝", "🗺️", "💡", "📊", "👤"];
+const statIcons = ["", "", "", "", "", ""];
 const statColors = [
   "from-emerald-500/20 to-emerald-900/10",
   "from-blue-500/20 to-blue-900/10",

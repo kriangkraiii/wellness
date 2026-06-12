@@ -134,7 +134,7 @@ export function ForecastPanel({ merchants }: { merchants: MerchantOption[] }) {
 
         {!result && (
           <div className="mt-8 flex flex-col items-center py-8 text-center">
-            <span className="text-5xl">📊</span>
+            <span className="text-5xl"></span>
             <p className="mt-4 text-sm text-[var(--ink-soft)]">
               เลือก merchant และช่วงเวลา
             </p>
@@ -182,7 +182,7 @@ export function ForecastPanel({ merchants }: { merchants: MerchantOption[] }) {
 
             <div className="sm:col-span-2 rounded-xl border border-[var(--warn)]/20 bg-[var(--warn-bg)] p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--warn)]">
-                ⚠ Scenario: Cost +10%
+                 Scenario: Cost +10%
               </p>
               <p className="mt-2 text-sm font-semibold text-[var(--ink)]">
                 ผลกระทบรายได้ {result.scenario.costIndexIncrease10.estimatedRevenueImpactPct}%

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { ClipboardList, Search, MessageSquare, Heart, AlertTriangle } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Severity = "severe" | "moderate" | "treatment";
@@ -104,7 +105,6 @@ const MASSAGE_TECHNIQUES: Record<string, { label: string; icon: string }> = {
   other: { label: "นวดอื่นๆ", icon: "" },
 };
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
 function BodySVG() {
   return (
     <>
@@ -160,7 +160,7 @@ function BodyDiagramDisplay({ selected, useFront }: { selected: SelectedBodyPoin
           const isPointInCurrentPerspective = points.some((p) => p.id === point.id);
           if (!isPointInCurrentPerspective) return null;
 
-          const color = SEV_COLOR[point.severity] || "var(--accent)";
+          const color = SEV_COLOR[point.severity] || "#2D6A4F";
           return (
             <g key={point.id}>
               <circle cx={point.x} cy={point.y} r="7" fill={color} opacity="0.2" />
@@ -183,8 +183,7 @@ function BodyDiagramDisplay({ selected, useFront }: { selected: SelectedBodyPoin
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
-export default function DashboardRecordsPage() {
+export default function TryRecordsPage() {
   const [records, setRecords] = useState<CustomerRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -249,36 +248,36 @@ export default function DashboardRecordsPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-xl font-bold text-slate-800">
-            ระบบจัดเก็บประวัติสปาและการประเมิน AI
+            ระบบบันทึกประวัติการบำบัด & วิเคราะห์อาการ (Spa Records Sandbox)
           </h2>
           <p className="text-sm text-slate-500">
-            จัดการฐานข้อมูลรายงานผลประเมินสุขภาพของลูกค้า และข้อมูลตรวจการรักษาของนักบำบัด
+            ดูรายงานประวัติการนวด อาการเจ็บปวด และคำแนะนำดูแลสุขภาพของลูกค้ารวมถึงการตรวจสอบของนักบำบัด
           </p>
         </div>
         <Link
           href="/form/therapist"
-          className="btn-primary rounded-xl px-5 py-2 text-xs font-bold flex items-center gap-2 max-w-max self-start sm:self-auto shadow-sm"
+          className="rounded-xl bg-[#2D6A4F] text-white hover:bg-[#1B4332] px-5 py-2.5 text-xs font-bold flex items-center gap-2 max-w-max self-start sm:self-auto shadow-sm transition"
         >
            แบบฟอร์มบำบัด (Therapist)
         </Link>
       </div>
 
       {/* Filters Card */}
-      <div className="rounded-2xl border border-slate-100 bg-white p-5 flex flex-col md:flex-row gap-4 items-center justify-between shadow-sm">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 flex flex-col md:flex-row gap-4 items-center justify-between shadow-sm">
         <div className="relative w-full md:max-w-md">
           <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-            
+            <Search className="h-4 w-4" />
           </span>
           <input
             type="text"
             placeholder="ค้นหาชื่อลูกค้า, โรคประจำตัว, สัญชาติ..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-accent focus:bg-white transition"
+            className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#52B788] focus:bg-white transition"
           />
         </div>
 
@@ -291,9 +290,9 @@ export default function DashboardRecordsPage() {
                 key={status}
                 type="button"
                 onClick={() => setFilterTherapist(status)}
-                className={`flex-1 md:flex-none text-xs font-semibold px-4 py-2 rounded-xl border transition ${
+                className={`flex-1 md:flex-none text-xs font-semibold px-4 py-2 rounded-xl border transition cursor-pointer ${
                   active
-                    ? "border-accent/40 bg-accent-subtle text-accent"
+                    ? "border-[#52B788]/40 bg-[#52B788]/10 text-[#2D6A4F]"
                     : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50"
                 }`}
               >
@@ -306,28 +305,28 @@ export default function DashboardRecordsPage() {
 
       {loading ? (
         <div className="rounded-2xl border border-slate-100 bg-white p-12 flex flex-col items-center justify-center space-y-3">
-          <svg className="h-8 w-8 animate-spin text-accent" fill="none" viewBox="0 0 24 24">
+          <svg className="h-8 w-8 animate-spin text-[#2D6A4F]" fill="none" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
             <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75" />
           </svg>
-          <p className="text-sm font-medium text-slate-500">กำลังโหลดประวัติลูกค้า...</p>
+          <p className="text-xs font-medium text-slate-500">กำลังโหลดประวัติลูกค้า...</p>
         </div>
       ) : error ? (
-        <div className="rounded-2xl border border-red-100 bg-red-50/50 p-6 text-center text-sm text-red-600">
+        <div className="rounded-2xl border border-red-100 bg-red-50/50 p-6 text-center text-xs text-red-600">
            เกิดข้อผิดพลาด: {error}
         </div>
       ) : filteredRecords.length === 0 ? (
         <div className="rounded-2xl border border-slate-100 bg-white p-12 text-center text-slate-400">
           <span className="text-4xl block mb-2"></span>
           <p className="font-semibold text-slate-700">ไม่พบประวัติลูกค้าในขณะนี้</p>
-          <p className="text-xs text-slate-400 mt-1">ลองเปลี่ยนคำค้นหา หรือกรอกข้อมูลจำลองเพิ่มได้</p>
+          <p className="text-xs text-slate-400 mt-1">ลองเปลี่ยนคำค้นหา หรือใช้แบบฟอร์มลูกค้านวดหน้าหลักเพื่อเพิ่มข้อมูล</p>
         </div>
       ) : (
         /* Records Table */
-        <div className="rounded-2xl border border-slate-100 bg-white overflow-hidden shadow-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
+              <thead className="bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-200/50">
                 <tr>
                   <th className="px-6 py-4">ลูกค้า</th>
                   <th className="px-6 py-4">อายุ/เพศ</th>
@@ -343,7 +342,7 @@ export default function DashboardRecordsPage() {
                 {filteredRecords.map((rec) => {
                   const points = parseBodyPoints(rec.bodyPoints);
                   return (
-                    <tr key={rec.id} className="hover:bg-slate-50/70 transition">
+                    <tr key={rec.id} className="hover:bg-slate-50/50 transition">
                       <td className="px-6 py-4 font-semibold text-slate-800">{rec.name}</td>
                       <td className="px-6 py-4">
                         {rec.age} ปี / {rec.gender}
@@ -373,12 +372,12 @@ export default function DashboardRecordsPage() {
                         {points.length > 0 ? (
                           <span className="font-semibold text-amber-600">{points.length} จุด</span>
                         ) : (
-                          <span className="text-emerald-500 font-medium">ไม่มี</span>
+                          <span className="text-emerald-500 font-medium font-bold">ไม่มี</span>
                         )}
                       </td>
                       <td className="px-6 py-4">
                         {rec.aiRecommendation ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent bg-accent-subtle rounded-full px-2 py-0.5">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#2D6A4F] bg-[#52B788]/15 rounded-full px-2.5 py-0.5">
                             ✦ มีบทวิเคราะห์
                           </span>
                         ) : (
@@ -406,7 +405,7 @@ export default function DashboardRecordsPage() {
                             setSelectedRecordId(rec.id);
                             setDrawerTab("ai");
                           }}
-                          className="text-xs font-bold text-accent hover:underline bg-accent-subtle/40 px-3 py-1.5 rounded-lg transition"
+                          className="text-xs font-bold text-[#2D6A4F] hover:underline bg-[#52B788]/10 px-3 py-1.5 rounded-lg transition cursor-pointer"
                         >
                           เปิดดู ➜
                         </button>
@@ -425,7 +424,7 @@ export default function DashboardRecordsPage() {
         <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/60 backdrop-blur-xs transition-all duration-300">
           <div className="w-full max-w-3xl bg-white h-full shadow-2xl flex flex-col overflow-hidden relative animate-in slide-in-from-right duration-300">
             {/* Drawer Header */}
-            <header className="border-b border-slate-100 bg-slate-50 px-6 py-4 flex items-center justify-between">
+            <header className="border-b border-slate-150 bg-slate-50 px-6 py-4 flex items-center justify-between">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <h3 className="font-heading text-base font-bold text-slate-800">
@@ -442,7 +441,7 @@ export default function DashboardRecordsPage() {
               <button
                 type="button"
                 onClick={() => setSelectedRecordId(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 transition shadow-sm font-bold text-xs"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 transition shadow-sm font-bold text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -453,9 +452,9 @@ export default function DashboardRecordsPage() {
               <button
                 type="button"
                 onClick={() => setDrawerTab("ai")}
-                className={`py-3 text-xs font-semibold border-b-2 transition ${
+                className={`py-3 text-xs font-semibold border-b-2 transition cursor-pointer ${
                   drawerTab === "ai"
-                    ? "border-accent text-accent"
+                    ? "border-[#2D6A4F] text-[#2D6A4F]"
                     : "border-transparent text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -464,9 +463,9 @@ export default function DashboardRecordsPage() {
               <button
                 type="button"
                 onClick={() => setDrawerTab("therapist")}
-                className={`py-3 text-xs font-semibold border-b-2 transition flex items-center gap-1.5 ${
+                className={`py-3 text-xs font-semibold border-b-2 transition cursor-pointer flex items-center gap-1.5 ${
                   drawerTab === "therapist"
-                    ? "border-accent text-accent"
+                    ? "border-[#2D6A4F] text-[#2D6A4F]"
                     : "border-transparent text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -485,7 +484,7 @@ export default function DashboardRecordsPage() {
                   {/* Grid for profile & pain map */}
                   <div className="grid gap-6 md:grid-cols-2">
                     {/* Customer demographics profile details */}
-                    <div className="rounded-2xl border border-slate-100 bg-white p-5 space-y-4 shadow-xs">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-4 shadow-xs">
                       <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         ข้อมูลลูกค้า
                       </h4>
@@ -519,7 +518,7 @@ export default function DashboardRecordsPage() {
                                   c === "ไม่มีโรคประจำตัว"
                                     ? "bg-emerald-50 border-emerald-100 text-emerald-700"
                                     : "bg-red-50 border-red-100 text-red-700"
-                                }`}
+                                  }`}
                               >
                                 {c}
                               </span>
@@ -557,16 +556,16 @@ export default function DashboardRecordsPage() {
                       </h4>
                       <BodyDiagramDisplay selected={parseBodyPoints(selectedRecord.bodyPoints)} useFront={true} />
                       <p className="text-[10px] text-slate-400 text-center">
-                        * ลูกค้าแจ้งอาการด้านหน้า มีจุดปวดทังหมด {parseBodyPoints(selectedRecord.bodyPoints).length} จุด
+                        * ลูกค้าแจ้งอาการด้านหน้า มีจุดปวดทั้งหมด {parseBodyPoints(selectedRecord.bodyPoints).length} จุด
                       </p>
                     </div>
                   </div>
 
                   {/* AI Wellness recommendation card */}
-                  <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs space-y-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-xl">✦</span>
-                      <h4 className="font-heading text-sm font-bold text-accent">
+                      <Heart className="h-4 w-4 text-[#2D6A4F]" />
+                      <h4 className="font-heading text-sm font-bold text-[#2D6A4F]">
                         บทวิเคราะห์และคำแนะนำการบำบัดด้วย AI
                       </h4>
                     </div>
@@ -581,7 +580,7 @@ export default function DashboardRecordsPage() {
 
                   {/* Customer feedback card */}
                   {selectedRecord.comment && (
-                    <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-xs">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 text-xs">
                       <span className="font-semibold text-slate-500 block"> ข้อคิดเห็นเพิ่มเติมจากลูกค้า:</span>
                       <p className="text-slate-600 mt-1 italic">&ldquo;{selectedRecord.comment}&rdquo;</p>
                     </div>
@@ -600,7 +599,7 @@ export default function DashboardRecordsPage() {
                       let readinessList: { label: string; status: string }[] = [];
                       if (thRec.readinessChecks) {
                         try {
-                           readinessList = typeof thRec.readinessChecks === "string"
+                          readinessList = typeof thRec.readinessChecks === "string"
                             ? JSON.parse(thRec.readinessChecks)
                             : thRec.readinessChecks;
                         } catch (e) {
@@ -611,7 +610,7 @@ export default function DashboardRecordsPage() {
                       return (
                         <div className="space-y-6">
                           {/* Readiness checks summary card */}
-                          <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs space-y-3">
+                          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-3">
                             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                               ความพร้อมในการรับบริการ (Therapist เช็คลิสต์)
                             </h4>
@@ -652,7 +651,7 @@ export default function DashboardRecordsPage() {
                           </div>
 
                           {/* Treatment Details Card */}
-                          <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs space-y-4">
+                          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-4">
                             <div>
                               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                                 เทคนิคการนวดบำบัดที่ใช้
@@ -664,7 +663,7 @@ export default function DashboardRecordsPage() {
                                     return (
                                       <span
                                         key={tech}
-                                        className="inline-flex items-center gap-1.5 rounded-xl border border-slate-100 bg-slate-50 px-3 py-1.5 text-xs text-slate-700 font-semibold"
+                                        className="inline-flex items-center gap-1.5 rounded-xl border border-slate-150 bg-slate-50 px-3 py-1.5 text-xs text-slate-700 font-semibold"
                                       >
                                         <span>{details.icon}</span>
                                         {details.label}
@@ -677,14 +676,14 @@ export default function DashboardRecordsPage() {
                               </div>
                             </div>
 
-                            <div className="pt-3 border-t border-slate-100">
+                            <div className="pt-3 border-t border-slate-150">
                               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                                 คำแนะนำการปฏิบัติตัว (ที่มอบให้ลูกค้า)
                               </h4>
                               <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-slate-700">
                                 {thRec.selfCareTips && thRec.selfCareTips.length > 0 ? (
                                   thRec.selfCareTips.map((tip, i) => (
-                                    <div key={i} className="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-50">
+                                    <div key={i} className="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
                                       <span className="text-emerald-500">✓</span>
                                       <span className="font-medium">{tip}</span>
                                     </div>
@@ -696,11 +695,11 @@ export default function DashboardRecordsPage() {
                             </div>
 
                             {thRec.notes && (
-                              <div className="pt-3 border-t border-slate-100">
+                              <div className="pt-3 border-t border-slate-150">
                                 <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                                   หมายเหตุและแผนงานถัดไปของ Therapist
                                 </h4>
-                                <p className="mt-2 text-xs leading-relaxed text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-50 whitespace-pre-line">
+                                <p className="mt-2 text-xs leading-relaxed text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 whitespace-pre-line">
                                   {thRec.notes}
                                 </p>
                               </div>
@@ -712,7 +711,7 @@ export default function DashboardRecordsPage() {
                   ) : (
                     /* Call To Action if therapist record does not exist */
                     <div className="rounded-2xl border border-amber-100 bg-amber-50/50 p-6 text-center space-y-4">
-                      <span className="text-4xl block">‍♀</span>
+                      <AlertTriangle className="h-8 w-8 text-amber-600 mx-auto" />
                       <h4 className="font-heading text-base font-bold text-amber-800">
                         ยังไม่มีประวัติการบำบัดของ Therapist
                       </h4>
@@ -722,9 +721,9 @@ export default function DashboardRecordsPage() {
                       </p>
                       <Link
                         href={`/form/therapist?recordId=${selectedRecord.id}`}
-                        className="btn-gold rounded-full px-5 py-2.5 text-xs font-bold inline-block shadow-sm transition"
+                        className="rounded-full bg-amber-500 hover:bg-amber-600 text-white px-5 py-2.5 text-xs font-bold inline-block shadow-sm transition"
                       >
-                         กรอกประเมินการบำบัด ณ เดี๋ยวนี้
+                         กรอกประเมินการบำบัด
                       </Link>
                     </div>
                   )}

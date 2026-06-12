@@ -32,7 +32,7 @@ export default function AboutUsPage() {
         <div className="space-y-8 text-sm text-slate-650 leading-relaxed font-body">
           <section className="space-y-3">
             <h2 className="font-heading text-xl font-bold text-[#2D6A4F] flex items-center gap-2">
-              🌾 จุดเริ่มต้นของโครงการ
+               จุดเริ่มต้นของโครงการ
             </h2>
             <p>
               แพลตฟอร์ม <strong>E-san Wellness Atlas</strong> พัฒนาขึ้นโดยความร่วมมือทางวิชาการร่วมกับ <strong>คณะบริหารธุรกิจและการบัญชี มหาวิทยาลัยขอนแก่น</strong> 
@@ -47,7 +47,7 @@ export default function AboutUsPage() {
 
           <section className="space-y-4">
             <h2 className="font-heading text-xl font-bold text-[#2D6A4F] flex items-center gap-2">
-              💡 เสาหลักการพัฒนา (Core Pillars)
+               เสาหลักการพัฒนา (Core Pillars)
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
               <div className="bg-[#FAF9F5] border border-slate-100 p-5 rounded-2xl">
@@ -58,14 +58,14 @@ export default function AboutUsPage() {
                 </p>
               </div>
               <div className="bg-[#FAF9F5] border border-slate-100 p-5 rounded-2xl">
-                <span className="text-2xl">💻</span>
+                <span className="text-2xl"></span>
                 <h3 className="font-heading font-semibold text-slate-800 mt-2 text-base">เทคโนโลยี AI อัจฉริยะ</h3>
                 <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                   นำระบบ AI ประมวลผลคำแนะนำ (AI Advisor) วิเคราะห์สรีระ/ข้อพึงระวัง และระบบพยากรณ์ความต้องการ (Demand Forecasting) เพิ่มประสิทธิภาพการบริหารจัดการ
                 </p>
               </div>
               <div className="bg-[#FAF9F5] border border-slate-100 p-5 rounded-2xl">
-                <span className="text-2xl">🗺️</span>
+                <span className="text-2xl"></span>
                 <h3 className="font-heading font-semibold text-slate-800 mt-2 text-base">เชื่อมโยงท่องเที่ยวครบวงจร</h3>
                 <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                   ผสานเครือข่ายสปา แหล่งท่องเที่ยว เส้นทางสุขภาพ และการเดินทาง เพื่อสร้างรายได้หมุนเวียนสู่ผู้ประกอบการชุมชนและท้องถิ่น
@@ -76,7 +76,7 @@ export default function AboutUsPage() {
 
           <section className="space-y-3">
             <h2 className="font-heading text-xl font-bold text-[#2D6A4F] flex items-center gap-2">
-              🎯 วิสัยทัศน์และเป้าหมาย
+               วิสัยทัศน์และเป้าหมาย
             </h2>
             <p>
               เป้าหมายสูงสุดของเราคือการสร้างระบบนิเวศสุขภาพที่เข้มแข็ง (E-san Wellness Ecosystem) เพื่อผลักดันให้ภาคอีสานก้าวสู่การเป็นจุดหมายปลายทางของการท่องเที่ยวเชิงการแพทย์และการแพทย์แผนไทยระดับสากล 

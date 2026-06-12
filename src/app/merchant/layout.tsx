@@ -24,7 +24,7 @@ export default async function MerchantLayout({
               ✦ Merchant Workspace
             </p>
             <h1 className="mt-1 font-heading text-3xl font-bold text-slate-800">
-              Khon Kaen Wellness Merchant Hub
+              E-san Wellness Merchant Hub
             </h1>
           </div>
           <nav className="flex flex-wrap gap-2">

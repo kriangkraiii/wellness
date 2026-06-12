@@ -26,13 +26,13 @@ export default async function AdminLoginPage({ searchParams }: PageProps) {
       <div className="relative mx-auto grid min-h-screen w-full max-w-5xl items-center gap-8 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
         <section className="glass-card p-8 fade-rise">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-            Khon Kaen Wellness Platform
+            E-san Wellness Platform
           </p>
           <h2 className="mt-3 font-heading text-4xl text-[var(--ink)]">
             <span className="text-gradient-emerald">Wellness</span> Portal Center
           </h2>
           <p className="mt-4 text-sm leading-7 text-[var(--ink-soft)]">
-            ระบบจัดการสำหรับผู้ใช้งานและผู้ประกอบการท่องเที่ยวเชิงสุขภาพขอนแก่น เข้าใช้งานระบบวิเคราะห์คำแนะนำ AI และระบบพยากรณ์ดีมานด์
+            ระบบจัดการสำหรับผู้ใช้งานและผู้ประกอบการท่องเที่ยวเชิงสุขภาพภาคอีสาน เข้าใช้งานระบบวิเคราะห์คำแนะนำ AI และระบบพยากรณ์ดีมานด์
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -45,8 +45,8 @@ export default async function AdminLoginPage({ searchParams }: PageProps) {
             <Link href="/admin/register" className="btn-secondary">
               ไปหน้าลงทะเบียน
             </Link>
-            <Link href="/merchant" className="btn-secondary">
-              ไป Merchant
+            <Link href="/dashboard/merchant-hub" className="btn-secondary">
+              ไป Merchant Hub
             </Link>
           </div>
         </section>

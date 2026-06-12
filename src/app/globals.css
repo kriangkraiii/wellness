@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════
-   Khon Kaen Wellness Atlas — Light Teal Wellness Theme
+   E-san Wellness Atlas — Light Teal Wellness Theme
    ═══════════════════════════════════════════════════════ */
 
 :root {
@@ -395,4 +395,62 @@ select.input-dark {
   background-position: center;
   transition: opacity 1000ms ease-in-out;
 }
+
+/* ─── Premium Chat Widget Glassmorphic Animations ─────── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  transition: left 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-sheen:hover::after {
+  left: 140%;
+  opacity: 1;
+}
+
+/* Gold glow pulse for glassmorphic chatbot button */
+@keyframes glow-pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(240, 201, 107, 0.2), 0 12px 40px rgba(27, 67, 50, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(240, 201, 107, 0.45), 0 12px 40px rgba(27, 67, 50, 0.35);
+  }
+}
+
+.glow-pulse-gold {
+  animation: glow-pulse-gold 3s ease-in-out infinite;
+}
+
 

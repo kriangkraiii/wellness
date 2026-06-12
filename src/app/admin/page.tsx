@@ -96,8 +96,8 @@ export default async function AdminDashboardPage() {
         </section>
 
         <section className="mt-6 flex flex-wrap gap-3">
-          <Link href="/merchant" className="btn-primary">
-            เปิด Merchant Workspace
+          <Link href="/dashboard/merchant-hub" className="btn-primary">
+            เปิด Merchant Workspace (Dashboard)
           </Link>
           <Link href="/discover" className="btn-secondary">
             เปิด Traveler Discovery

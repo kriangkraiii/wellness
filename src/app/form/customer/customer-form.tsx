@@ -389,7 +389,11 @@ export function CustomerForm({ initialName = "" }: { initialName?: string }) {
 
   function handleBack() {
     if (step === 1) {
-      router.push("/");
+      if (typeof window !== "undefined" && document.referrer && document.referrer.includes(window.location.host)) {
+        router.back();
+      } else {
+        router.push("/");
+      }
       return;
     }
     setStep((s) => s - 1);

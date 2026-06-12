@@ -13,7 +13,7 @@ export default function AdminRegisterPage() {
       <div className="relative mx-auto grid min-h-screen w-full max-w-5xl items-center gap-8 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
         <section className="glass-card p-8 fade-rise">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
-            ✦ Khon Kaen Wellness Platform
+            ✦ E-san Wellness Platform
           </p>
           <h2 className="mt-3 font-heading text-4xl text-[var(--ink)]">
             Create <span className="text-gradient-emerald">Member</span> Account

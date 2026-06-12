@@ -5,9 +5,14 @@ import Link from "next/link";
 import { getHighlights, type WellnessHighlight } from "@/lib/highlights";
 
 const startPoints = [
-  "สนามบินขอนแก่น",
+  "ท่าอากาศยานขอนแก่น (KKC)",
+  "ท่าอากาศยานนครราชสีมา (NAK)",
+  "ท่าอากาศยานอุบลราชธานี (UBP)",
   "สถานีรถไฟขอนแก่น",
+  "สถานีรถไฟนครราชสีมา",
   "ตัวเมืองขอนแก่น",
+  "ตัวเมืองนครราชสีมา",
+  "ตัวเมืองอุบลราชธานี",
 ];
 
 const travelGoals = [
@@ -97,7 +102,7 @@ export default function Home() {
 
         <div className="relative z-10 fade-rise max-w-3xl">
           <h1 className="font-heading text-4xl md:text-6xl font-bold text-white tracking-wider uppercase drop-shadow-md">
-            Khonkaen Wellness
+            E-san Wellness
           </h1>
           <div className="flex items-center justify-center gap-3 mt-4 text-white text-base md:text-xl font-semibold tracking-widest drop-shadow-sm">
             <div className="h-[2px] w-8 md:w-16 bg-white/80"></div>
@@ -111,11 +116,11 @@ export default function Home() {
       <section className="relative max-w-4xl mx-auto px-4 -mt-12 md:-mt-16 z-20">
         <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 md:p-8 hover:shadow-2xl transition duration-300">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-5">
-            <span className="text-2xl animate-bounce">🧳</span>
+            <span className="text-2xl animate-bounce"></span>
             <h2>
               เริ่มต้น<span className="text-accent transition-colors duration-300">จัดทริป</span>กันเลย
             </h2>
-            <span className="text-2xl ml-auto hidden sm:inline">🚐</span>
+            <span className="text-2xl ml-auto hidden sm:inline"></span>
           </div>
 
           <form action="/discover" method="get" className="grid grid-cols-1 md:grid-cols-3 gap-5 items-end">

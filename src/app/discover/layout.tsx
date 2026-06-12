@@ -17,7 +17,7 @@ export default function DiscoverLayout({
               Traveler Discovery
             </p>
             <h1 className="mt-1 font-heading text-3xl font-bold text-slate-800">
-              Khon Kaen Wellness Route Explorer
+              E-san Wellness Route Explorer
             </h1>
           </div>
           <nav className="flex flex-wrap gap-2">

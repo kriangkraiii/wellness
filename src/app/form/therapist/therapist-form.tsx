@@ -386,13 +386,19 @@ export function TherapistForm() {
 
   function toggleTechnique(id: string) { setTechniques((prev) => prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]); }
   function toggleCaution(item: string) { setCautions((prev) => prev.includes(item) ? prev.filter((c) => c !== item) : [...prev, item]); }
+
   function handleBack() {
     if (step === 1) {
-      router.push("/");
+      if (typeof window !== "undefined" && document.referrer && document.referrer.includes(window.location.host)) {
+        router.back();
+      } else {
+        router.push("/dashboard/records");
+      }
       return;
     }
     setStep((s) => s - 1);
   }
+
   function handleNext() { if (step < 4) setStep((s) => s + 1); else handleSubmit(); }
 
   if (submitted) {

@@ -1,4 +1,4 @@
-# Khon Kaen Wellness Atlas
+# E-san Wellness Atlas
 
 Next.js 16 fullstack platform for wellness tourism with:
 

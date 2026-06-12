@@ -78,6 +78,26 @@ async function seedMerchants() {
     ],
   });
 
+  await prisma.offering.deleteMany({ where: { merchantId: travelerMerchant.id } });
+  await prisma.offering.createMany({
+    data: [
+      {
+        merchantId: travelerMerchant.id,
+        title: "Nature Forest Bathing Tour",
+        category: "Tour Signature",
+        basePrice: 1500,
+        wellnessFocus: "Mental clarity and fresh air immersion",
+      },
+      {
+        merchantId: travelerMerchant.id,
+        title: "Organic Isan Cooking Class",
+        category: "Workshop",
+        basePrice: 750,
+        wellnessFocus: "Nutrition and local culinary experience",
+      },
+    ],
+  });
+
   return { merchant, travelerMerchant };
 }
 
@@ -166,8 +186,8 @@ async function seedPartners() {
         name: "Grab Merchant",
         type: PartnerType.MARKETING,
         channel: "Delivery & promotion",
-        summary: "กระจายโปรโมชันและดีลแก่ลูกค้าในเมือง",
-        coverageArea: "Khon Kaen City",
+        summary: "กระจายโปรโมชันและดีลแก่ลูกค้าในเมือง (ภาคอีสาน)",
+        coverageArea: "ขอนแก่นและหัวเมืองอีสาน",
         score: 82,
       },
       create: {
@@ -175,8 +195,8 @@ async function seedPartners() {
         name: "Grab Merchant",
         type: PartnerType.MARKETING,
         channel: "Delivery & promotion",
-        summary: "กระจายโปรโมชันและดีลแก่ลูกค้าในเมือง",
-        coverageArea: "Khon Kaen City",
+        summary: "กระจายโปรโมชันและดีลแก่ลูกค้าในเมือง (ภาคอีสาน)",
+        coverageArea: "ขอนแก่นและหัวเมืองอีสาน",
         score: 82,
       },
     }),
@@ -227,8 +247,8 @@ async function seedPartners() {
         name: "โรงแรมพูลแมน ขอนแก่น ราชา ออคิด",
         type: PartnerType.TRAVEL,
         channel: "โรงแรมและรีสอร์ท",
-        summary: "โรงแรมหรูระดับ 5 ดาว ใจกลางเมืองขอนแก่น พร้อมศูนย์สปาระดับพรีเมียม",
-        coverageArea: "เมืองขอนแก่น",
+        summary: "โรงแรมหรูระดับ 5 ดาว ใจกลางเมืองขอนแก่น (ภาคอีสาน) พร้อมศูนย์สปาระดับพรีเมียม",
+        coverageArea: "ขอนแก่น (ภาคอีสาน)",
         score: 95,
       },
       create: {
@@ -236,8 +256,8 @@ async function seedPartners() {
         name: "โรงแรมพูลแมน ขอนแก่น ราชา ออคิด",
         type: PartnerType.TRAVEL,
         channel: "โรงแรมและรีสอร์ท",
-        summary: "โรงแรมหรูระดับ 5 ดาว ใจกลางเมืองขอนแก่น พร้อมศูนย์สปาระดับพรีเมียม",
-        coverageArea: "เมืองขอนแก่น",
+        summary: "โรงแรมหรูระดับ 5 ดาว ใจกลางเมืองขอนแก่น (ภาคอีสาน) พร้อมศูนย์สปาระดับพรีเมียม",
+        coverageArea: "ขอนแก่น (ภาคอีสาน)",
         score: 95,
       },
     }),
@@ -247,8 +267,8 @@ async function seedPartners() {
         name: "โฮมสเตย์ชุมชนบ้านศิลา",
         type: PartnerType.SUPPLIER,
         channel: "โฮมสเตย์",
-        summary: "สัมผัสวิถีชีวิตดั้งเดิมของชาวขอนแก่น อาหารพื้นบ้านปรับสมดุล และการพำนักแบบสโลว์ไลฟ์",
-        coverageArea: "ตำบลศิลา ขอนแก่น",
+        summary: "สัมผัสวิถีชีวิตดั้งเดิมของชาวอีสาน อาหารพื้นบ้านปรับสมดุล และการพำนักแบบสโลว์ไลฟ์",
+        coverageArea: "ขอนแก่น (ภาคอีสาน)",
         score: 88,
       },
       create: {
@@ -256,8 +276,8 @@ async function seedPartners() {
         name: "โฮมสเตย์ชุมชนบ้านศิลา",
         type: PartnerType.SUPPLIER,
         channel: "โฮมสเตย์",
-        summary: "สัมผัสวิถีชีวิตดั้งเดิมของชาวขอนแก่น อาหารพื้นบ้านปรับสมดุล และการพำนักแบบสโลว์ไลฟ์",
-        coverageArea: "ตำบลศิลา ขอนแก่น",
+        summary: "สัมผัสวิถีชีวิตดั้งเดิมของชาวอีสาน อาหารพื้นบ้านปรับสมดุล และการพำนักแบบสโลว์ไลฟ์",
+        coverageArea: "ขอนแก่น (ภาคอีสาน)",
         score: 88,
       },
     }),
@@ -265,40 +285,40 @@ async function seedPartners() {
     prisma.partner.upsert({
       where: { slug: "khonkaen-carrent" },
       update: {
-        name: "ขอนแก่น คาร์เร้นท์ (KK Car Rent)",
+        name: "บริการรถเช่าท่องเที่ยวอีสาน (E-san Car Rent)",
         type: PartnerType.TRAVEL,
         channel: "บริการรถเช่า",
-        summary: "บริการรถยนต์และรถตู้ให้เช่าพร้อมคนขับนำเที่ยวเส้นทางสุขภาพขอนแก่น",
-        coverageArea: "ทั่วจังหวัดขอนแก่น",
+        summary: "บริการรถยนต์และรถตู้ให้เช่าพร้อมคนขับนำเที่ยวเส้นทางสุขภาพทั่วภาคอีสาน",
+        coverageArea: "ทั่วภาคอีสาน",
         score: 90,
       },
       create: {
         slug: "khonkaen-carrent",
-        name: "ขอนแก่น คาร์เร้นท์ (KK Car Rent)",
+        name: "บริการรถเช่าท่องเที่ยวอีสาน (E-san Car Rent)",
         type: PartnerType.TRAVEL,
         channel: "บริการรถเช่า",
-        summary: "บริการรถยนต์และรถตู้ให้เช่าพร้อมคนขับนำเที่ยวเส้นทางสุขภาพขอนแก่น",
-        coverageArea: "ทั่วจังหวัดขอนแก่น",
+        summary: "บริการรถยนต์และรถตู้ให้เช่าพร้อมคนขับนำเที่ยวเส้นทางสุขภาพทั่วภาคอีสาน",
+        coverageArea: "ทั่วภาคอีสาน",
         score: 90,
       },
     }),
     prisma.partner.upsert({
       where: { slug: "khonkaen-citybus" },
       update: {
-        name: "ตารางรถโดยสาร ขอนแก่น ซิตี้บัส",
+        name: "ตารางรถโดยสารท่องเที่ยวภาคอีสาน (E-san Travel Bus)",
         type: PartnerType.TRAVEL,
         channel: "ตารางเวลาเดินรถ",
-        summary: "รถโดยสารอัจฉริยะรอบเมืองขอนแก่น มีระบบ Wifi และ GPS เช็คตำแหน่งรถได้แบบเรียลไทม์",
-        coverageArea: "เมืองขอนแก่น",
+        summary: "บริการรถโดยสารอัจฉริยะในเส้นทางท่องเที่ยวหลักภาคอีสาน มีระบบ Wifi และ GPS เช็คตำแหน่งได้แบบเรียลไทม์",
+        coverageArea: "เส้นทางท่องเที่ยวหลักในภาคอีสาน",
         score: 85,
       },
       create: {
         slug: "khonkaen-citybus",
-        name: "ตารางรถโดยสาร ขอนแก่น ซิตี้บัส",
+        name: "ตารางรถโดยสารท่องเที่ยวภาคอีสาน (E-san Travel Bus)",
         type: PartnerType.TRAVEL,
         channel: "ตารางเวลาเดินรถ",
-        summary: "รถโดยสารอัจฉริยะรอบเมืองขอนแก่น มีระบบ Wifi และ GPS เช็คตำแหน่งรถได้แบบเรียลไทม์",
-        coverageArea: "เมืองขอนแก่น",
+        summary: "บริการรถโดยสารอัจฉริยะในเส้นทางท่องเที่ยวหลักภาคอีสาน มีระบบ Wifi และ GPS เช็คตำแหน่งได้แบบเรียลไทม์",
+        coverageArea: "เส้นทางท่องเที่ยวหลักในภาคอีสาน",
         score: 85,
       },
     }),
@@ -516,11 +536,13 @@ async function seedAdminUser() {
 }
 
 async function main() {
-  const { merchant } = await seedMerchants();
+  const { merchant, travelerMerchant } = await seedMerchants();
   await seedIngredients(merchant.id);
+  await seedIngredients(travelerMerchant.id);
   await seedPartners();
   await seedRoutePlans(merchant.id);
   await seedDemand(merchant.id);
+  await seedDemand(travelerMerchant.id);
   await seedAdminUser();
 }
 
